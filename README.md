@@ -9,7 +9,7 @@ _Herramientas necesarias para ejecutar los ejemplos expuestos_
 
 * [OpenJdk](https://jpexposito.com/lets-go-maven/) - MV de Java.
 * [Maven](https://maven.apache.org/) - Manejador de dependencias.
-* [Ide Desarrollo](https://jpexposito.com/preparing-development-environment-java/) - Instalación y configuración de VS-Code en un entorno java.
+* [Ide Desarrollo](https://jpexposito.com/preparing-development-environment-java/) - Instalación y configuración de VS-Code en un entorno Java.
 
 
 ## Ejecutando las pruebas ⚙️
