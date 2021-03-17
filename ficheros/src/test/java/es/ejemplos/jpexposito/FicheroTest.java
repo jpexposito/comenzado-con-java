@@ -1,5 +1,6 @@
 package es.ejemplos.jpexposito;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -67,9 +68,19 @@ public class FicheroTest {
       }
    }
 
-   public void esDirectorioTest() {
-      
+   @Test
+   public void noEsDirectorioTest() {
+      boolean directorio = fichero.esDirectorio(nombreFichero);
+      assertFalse(directorio, "No funciona correctamente dado que es un fichero:"+nombreFichero);
    }
+
+   @Test
+   public void esDirectorioTest() {
+      String nombreDirectorio = "src";
+      boolean directorio = fichero.esDirectorio(nombreDirectorio);
+      assertTrue(directorio, "No funciona correctamente dado que es un directorio:"+nombreDirectorio);
+   }
+
 
  
    private void crearFichero() {
