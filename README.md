@@ -1,5 +1,7 @@
 # Ejemplos de Java
 
+<img align="center" width="200" height="200" src="images/icono-java.png" alt="Ejemplos de Lenguaje Java">
+
 Este repositorio esta destinado a albergar los distintos ejemplos de código que se expongan en [jpexposito.com](https://jpexposito.com/), web personal, referentes a java.
 ## Comenzando 🚀
 
@@ -16,3 +18,6 @@ _Herramientas necesarias para ejecutar los ejemplos expuestos_
 _Explica como ejecutar las pruebas automatizadas para este sistema_
 
 Para la ejecución de las distintas pruebas de los propyectos, tan sólo hemos de ejecutar *mvn clean test*.
+
+## Recursos
+* [Imagenes](https://www.freepng.es/ - que se utilizan en los diferentes ejemplos. Estás imagenes son explicativas y para hacer más ameno las explicaciones. No se hace uso comercial de ellas, sólo personal.
