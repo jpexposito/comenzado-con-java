@@ -78,11 +78,10 @@ public class FicheroTest {
    public void esDirectorioTest() {
       String nombreDirectorio = "src";
       boolean directorio = fichero.esDirectorio(nombreDirectorio);
-      assertTrue(directorio, "No funciona correctamente dado que es un directorio:"+nombreDirectorio);
+      assertTrue(directorio, "No funciona correctamente dado que es un directorio:"+nombreFichero);
    }
 
 
- 
    private void crearFichero() {
       try {
          fichero.crear(nombreFichero, mensaFichero);

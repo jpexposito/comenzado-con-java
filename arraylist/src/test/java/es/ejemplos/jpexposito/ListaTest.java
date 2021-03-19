@@ -16,21 +16,22 @@ public class ListaTest {
          lista = new Lista();
       }
       lista.insertar(dato);
+      
    }
 
    @AfterEach
    public void alfer() {
-
+      lista.eliminar(dato);
    }
 
    @Test
    public void insertarTest() {
       assertTrue(lista.existe(dato), "El elemento no se encuentra en la lista");
    } 
-
-
-
-
-
-
+   
+   @Test
+   public void buscarTest() {
+      String datoABuscar = lista.buscar(dato);
+      assertTrue(datoABuscar.equals(dato), "El elemento encontrado no es el esperado");
+   }
 }
