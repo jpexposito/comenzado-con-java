@@ -6,11 +6,14 @@ public class Destino {
    String ciudad;
    String pais;
 
+   public Destino() {
+   }
 
-   public Destino(String ciudad, String pais) {
+   public Destino(String pais,String ciudad) {
       this.ciudad = ciudad;
       this.pais = pais;
    }
+
 
    public String getCiudad() {
       return this.ciudad;
@@ -28,20 +31,7 @@ public class Destino {
       this.pais = pais;
    }
 
-
-   public Destino() {
-   }
-
-   public Destino ciudad(String ciudad) {
-      setCiudad(ciudad);
-      return this;
-   }
-
-   public Destino pais(String pais) {
-      setPais(pais);
-      return this;
-   }
-
+   
    @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -51,11 +41,6 @@ public class Destino {
         }
         Destino destino = (Destino) o;
         return Objects.equals(ciudad, destino.ciudad) && Objects.equals(pais, destino.pais);
-   }
-
-   @Override
-   public int hashCode() {
-      return Objects.hash(ciudad, pais);
    }
 
    @Override
