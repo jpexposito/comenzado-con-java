@@ -18,11 +18,17 @@ public class Alumno extends Persona {
       this.posicion = posicion;
    }
 
-
+/*
    @Override
    public String toString() {
       return this.nombre+"," +this.apellido+","+this.posicion+"\n";
    }
+   */
+
+   @Override
+    public String toString() {
+        return nombre+" "+apellido;
+    }
 
   
 }

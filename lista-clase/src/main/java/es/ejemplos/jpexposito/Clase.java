@@ -1,14 +1,18 @@
 package es.ejemplos.jpexposito;
 
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import es.ejemplos.jpexposito.elementos.*;
 import es.ejemplos.jpexposito.exception.AlumnoException;
+import es.ejemplos.jpexposito.exception.FicheroException;
 
 public class Clase {
     Profesor profesor;
     HashMap<Integer, Alumno> alumnos;
+    Fichero fichero;
 
     public Clase() {
         alumnos = new HashMap<>();
@@ -59,7 +63,27 @@ public class Clase {
         alumnos.remove(posicion);
     }
 
+    /**
+     * Funcion que muestra el contenido de la lista
+     * @return String con los elementos
+     */
     public String mostrarLista() {
         return alumnos.toString();
     }
+
+    /**
+     * Metodo que permite almacenar en un fichera
+     * @param nombreFichero
+     * @throws FicheroException
+     */
+    public void volcarAfichero(String nombreFichero) throws FicheroException {
+    
+        if (fichero == null) {
+            fichero = new Fichero();
+        }
+        String cadena = mostrarLista();
+
+        fichero.crear(nombreFichero, cadena);
+    }
+
 }

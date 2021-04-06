@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import es.ejemplos.jpexposito.elementos.Alumno;
 import es.ejemplos.jpexposito.exception.AlumnoException;
+import es.ejemplos.jpexposito.exception.FicheroException;
 
 /**
  * Unit test for simple App.
@@ -45,9 +46,23 @@ public class ClaseTest {
     }
 
     @Test
-    public void eliminarAlumno(){
+    public void eliminarAlumnoTest(){
         clase.eliminar(1);
         assertTrue(clase.alumnos.isEmpty(), "No se ha eliminado correctamente");
+    }
+
+        @Test
+    public void mostrarAlumnoTest(){
+        assertTrue(clase.mostrarLista().contains("test"), "La lista no contiene el alumno correcto");
+    }
+
+    @Test
+    public void volcarAficheroTest() {
+        try {
+            clase.volcarAfichero("nombreFichero.txt");
+        } catch (FicheroException e) {
+            fail("Error guardando el fichero de test");
+        }
     }
 
     private Alumno crearAlumnoTest() {
