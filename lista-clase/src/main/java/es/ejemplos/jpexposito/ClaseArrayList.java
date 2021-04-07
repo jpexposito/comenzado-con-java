@@ -36,7 +36,14 @@ public class ClaseArrayList {
      */
     public Alumno buscar(Integer posicion) {
         Alumno alumno = null;
-        alumno = alumnos.get(posicion);
+        int i = 0;
+        while(i < alumnos.size()) {
+            if (alumnos.get(i).getPosicion() == posicion) {
+                alumno = alumnos.get(i);
+                break;
+            }
+            i++;
+        }
         return alumno;
     } 
 
@@ -46,12 +53,9 @@ public class ClaseArrayList {
      * @return true/false
      */
     public boolean existe(Alumno alumno) {
-        Alumno alumnoAencontrar;
-        alumnoAencontrar = buscar(alumno.getPosicion());
-        if (alumnoAencontrar != null) {
-            return true;
-        }
-        else return false;
+        boolean existeAlumno = false;
+        existeAlumno = alumnos.contains(alumno);
+        return existeAlumno;
     } 
     
     /**
@@ -59,7 +63,10 @@ public class ClaseArrayList {
      * @param posicion
      */
     public void eliminar(Integer posicion) {
-        alumnos.remove(posicion);
+        Alumno alumno = buscar(posicion);
+        if (alumno != null) {
+            alumnos.remove(alumno);
+        }
     }
 
     /**

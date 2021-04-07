@@ -18,17 +18,31 @@ public class Alumno extends Persona {
       this.posicion = posicion;
    }
 
-/*
+
    @Override
    public String toString() {
       return this.nombre+"," +this.apellido+","+this.posicion+"\n";
    }
-   */
 
+/*
    @Override
     public String toString() {
         return nombre+" "+apellido;
     }
+    */
+
+   @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Alumno)) {
+            return false;
+        }
+        Alumno alumno = (Alumno) o;
+        return posicion == alumno.posicion;
+   }
+
+   
 
   
 }

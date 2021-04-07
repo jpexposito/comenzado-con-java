@@ -28,7 +28,7 @@ public class ClaseHasMapTest {
         }
         
         try {
-            fichero.eliminar(NOMBRE_FICHERO_TXT);
+            //fichero.eliminar(NOMBRE_FICHERO_TXT);
             clase.insertar(crearAlumnoTest());
         } catch (Exception e) {
             fail("Se ha producido un error en la inicializacion del test");
@@ -66,7 +66,7 @@ public class ClaseHasMapTest {
         try {
             clase.volcarAfichero(NOMBRE_FICHERO_TXT);
             String contenido = fichero.leer(NOMBRE_FICHERO_TXT);
-            assertTrue(contenido.contains("{1=test"), "El fichero no contiene el alumno");
+            assertTrue(contenido.contains("test,test2"), "El fichero no contiene el alumno");
         } catch (FicheroException e) {
             fail("Error guardando el fichero de test");
         }
