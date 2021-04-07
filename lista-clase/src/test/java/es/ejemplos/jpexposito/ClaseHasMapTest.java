@@ -12,10 +12,10 @@ import es.ejemplos.jpexposito.exception.AlumnoException;
 import es.ejemplos.jpexposito.exception.FicheroException;
 
 
-public class ClaseTest {
+public class ClaseHasMapTest {
 
     private static final String NOMBRE_FICHERO_TXT = "nombreFichero.txt";
-    Clase clase;
+    ClaseHasMap clase;
     Fichero fichero;
 
     @BeforeEach
@@ -24,7 +24,7 @@ public class ClaseTest {
             fichero = new Fichero();
         }
         if (clase == null) {
-            clase = new Clase();
+            clase = new ClaseHasMap();
         }
         
         try {

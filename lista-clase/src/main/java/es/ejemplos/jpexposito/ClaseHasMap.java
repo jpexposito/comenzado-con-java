@@ -1,21 +1,18 @@
 package es.ejemplos.jpexposito;
 
-import java.io.File;
-import java.security.KeyStore.Entry;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.Iterator;
 
 import es.ejemplos.jpexposito.elementos.*;
 import es.ejemplos.jpexposito.exception.AlumnoException;
 import es.ejemplos.jpexposito.exception.FicheroException;
 
-public class Clase {
+public class ClaseHasMap {
     Profesor profesor;
     HashMap<Integer, Alumno> alumnos;
     Fichero fichero;
 
-    public Clase() {
+    public ClaseHasMap() {
         alumnos = new HashMap<>();
     }
 
