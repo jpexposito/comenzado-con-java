@@ -11,23 +11,28 @@ import es.ejemplos.jpexposito.elementos.Alumno;
 import es.ejemplos.jpexposito.exception.AlumnoException;
 import es.ejemplos.jpexposito.exception.FicheroException;
 
-/**
- * Unit test for simple App.
- */
+
 public class ClaseTest {
 
+    private static final String NOMBRE_FICHERO_TXT = "nombreFichero.txt";
     Clase clase;
+    Fichero fichero;
 
     @BeforeEach
     public void setUp() {
+        if (fichero == null) {
+            fichero = new Fichero();
+        }
         if (clase == null) {
             clase = new Clase();
         }
+        
         try {
+            fichero.eliminar(NOMBRE_FICHERO_TXT);
             clase.insertar(crearAlumnoTest());
-        } catch (AlumnoException e) {
-            fail("Se ha producido un error al crear la lista de inicio");
-        }
+        } catch (Exception e) {
+            fail("Se ha producido un error en la inicializacion del test");
+        } 
     }
 
     @Test
@@ -59,13 +64,15 @@ public class ClaseTest {
     @Test
     public void volcarAficheroTest() {
         try {
-            clase.volcarAfichero("nombreFichero.txt");
+            clase.volcarAfichero(NOMBRE_FICHERO_TXT);
+            String contenido = fichero.leer(NOMBRE_FICHERO_TXT);
+            assertTrue(contenido.contains("{1=test"), "El fichero no contiene el alumno");
         } catch (FicheroException e) {
             fail("Error guardando el fichero de test");
         }
     }
 
     private Alumno crearAlumnoTest() {
-        return new Alumno("test", "test", 1);
+        return new Alumno("test", "test2", 1);
     }
 }

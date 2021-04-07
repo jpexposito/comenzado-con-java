@@ -1,5 +1,6 @@
 package es.ejemplos.jpexposito;
 
+import java.io.File;
 import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,5 +86,7 @@ public class Clase {
 
         fichero.crear(nombreFichero, cadena);
     }
+
+    
 
 }
