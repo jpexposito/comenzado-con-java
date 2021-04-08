@@ -28,7 +28,7 @@ public class ClaseArrayListTest {
         }
         
         try {
-            //fichero.eliminar(NOMBRE_FICHERO_TXT);
+            fichero.eliminar(NOMBRE_FICHERO_TXT);
             clase.insertar(crearAlumnoTest());
         } catch (AlumnoException e) {
             fail("Se ha producido un error al insertar el alumno");

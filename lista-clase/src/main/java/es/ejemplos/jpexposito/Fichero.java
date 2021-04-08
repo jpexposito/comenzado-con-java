@@ -86,11 +86,12 @@ public class Fichero {
     */
    public void eliminar(String nombre) throws FicheroException {
       File fichero = new File(nombre);
-      if (validarFichero(fichero)) {
-         fichero.delete();
-      } else {
-         throw new FicheroException("No se puede eliminar un fichero que no existe");
+      try {
+            fichero.delete();
+      } catch (Exception e) {
+         throw new FicheroException("No se puede eliminar un fichero que no existe",e);
       }
+      
       
    }
    /**

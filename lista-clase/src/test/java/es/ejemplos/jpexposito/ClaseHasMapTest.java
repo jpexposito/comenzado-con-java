@@ -28,7 +28,7 @@ public class ClaseHasMapTest {
         }
         
         try {
-            //fichero.eliminar(NOMBRE_FICHERO_TXT);
+            fichero.eliminar(NOMBRE_FICHERO_TXT);
             clase.insertar(crearAlumnoTest());
         } catch (Exception e) {
             fail("Se ha producido un error en la inicializacion del test");
