@@ -32,8 +32,7 @@ public class GestionLinkedList {
      * @param fruta a insertar
      */
     public void insertarUltimo(Fruta fruta) {
-        lista.addLast(fruta);
-    }
+        lista.addLast(fruta);    }
 
     /**
      * Metodo que permite eliminar al final de la lista

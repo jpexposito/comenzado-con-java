@@ -22,16 +22,6 @@ public class Fruta {
       this.peso = peso;
    }
 
-
-   /**
-    * Funcion que permite obtener la informacion de la clase Fruta
-    */
-   @Override
-   public String toString() {
-      return " color='" + getColor() + "'" + ", peso='" + getPeso() + "'\n";
-   }
-
-
    public String getColor() {
       return this.color;
    }
@@ -46,6 +36,16 @@ public class Fruta {
    public void setPeso(int peso) {
       this.peso = peso;
    }
+
+
+
+/**
+    * Funcion que permite obtener la informacion de la clase Fruta
+    */
+    @Override
+    public String toString() {
+       return " color='" + getColor() + "'" + ", peso='" + getPeso() + "'\n";
+    }
    
    
 }

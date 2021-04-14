@@ -46,6 +46,12 @@ public class GestionLinkedListTest {
 
 
     @Test
+    public void holaMundoTest() {
+        assertTrue(true);
+    }
+
+ 
+    @Test
     public void eliminarPrimerElementoListaVaciaTest() {
         gestionLinkedList.lista.clear();
         try {
@@ -55,12 +61,15 @@ public class GestionLinkedListTest {
         }
     }
 
+
+
     @Test
     public void eliminarElementosTest() {
         
         try {
             gestionLinkedList.eliminarPrimero();
             gestionLinkedList.eliminarUltimo();
+            assertTrue(gestionLinkedList.getLista().isEmpty(), "La lista no esta vacia");
         } catch (FrutaException e) {
             fail("La lista no debe de estar vacia, debe de contener elementos");
         }
@@ -84,6 +93,14 @@ public class GestionLinkedListTest {
          assertTrue(contenido.contains("17"),
          "No se ha obtenido la informacion de un elemento");
     }
+
+
+    @Test
+    public void generarExceptionTest() {
+        Exception frutaException = new FrutaException("Mensaje de error", new Exception());
+        assertTrue(frutaException.getMessage().contains("Mensaje de error"), "No genera el mensaje esperado");
+    }
+
 
     /**
      * Funcion que permite generar una fruta por defecto
