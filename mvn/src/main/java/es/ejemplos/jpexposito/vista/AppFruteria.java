@@ -1,5 +1,6 @@
 package es.ejemplos.jpexposito.vista;
 
+import es.ejemplos.jpexposito.api.Fruta;
 import es.ejemplos.jpexposito.controlador.FrutaController;
 
 public class AppFruteria {
@@ -14,7 +15,7 @@ public class AppFruteria {
         System.out.println( "Hello World!" );
     }
 
-    public void insertar(String identificador, String nombre, String color, float coste, float precio) {
-        frutaController.insertar(identificador, nombre, color, coste, precio);
+    public void insertar(Fruta fruta) {
+        frutaController.insertar(fruta);
      }
 }
