@@ -10,6 +10,13 @@ public class Fruta {
    float precio;
    float coste;
    
+
+   /**
+    * Constructor por defecto
+    */
+   public Fruta() {
+   
+   }
    /**
     * Constructor con todas las propiedades de la fruta
     * @param identificador de la fruta

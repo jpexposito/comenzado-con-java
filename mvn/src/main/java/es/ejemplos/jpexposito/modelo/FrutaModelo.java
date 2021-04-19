@@ -27,9 +27,5 @@ public class FrutaModelo {
    public void modificar(Fruta fruta) {
       //lo que sea
    }
-
-   public void modificar(Fruta fruta) {
-      //lo que sea
-   }
    
 }

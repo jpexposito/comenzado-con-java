@@ -2,6 +2,7 @@ package es.ejemplos.jpexposito.vista;
 
 import es.ejemplos.jpexposito.api.Fruta;
 import es.ejemplos.jpexposito.controlador.FrutaController;
+import es.ejemplos.jpexposito.excepcion.FrutaException;
 
 public class AppFruteria {
 
@@ -15,7 +16,7 @@ public class AppFruteria {
         System.out.println( "Hello World!" );
     }
 
-    public void insertar(Fruta fruta) {
+    public void insertar(Fruta fruta) throws FrutaException {
         frutaController.insertar(fruta);
      }
 }
