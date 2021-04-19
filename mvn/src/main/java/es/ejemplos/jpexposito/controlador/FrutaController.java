@@ -73,6 +73,11 @@ public class FrutaController {
       frutaModelo.eliminar(fruta); 
    }
 
+   /**
+    * Meotod encargado de realiza la eliminacion de una fruta
+    * @param identificador del elemento a eliminar
+    * @throws FrutaException controlada con el error
+    */
    public void eliminar(String identificador) throws FrutaException {
       Fruta fruta;
       fruta = buscar(identificador);
@@ -93,8 +98,19 @@ public class FrutaController {
       return fruta;
    }
 
-   public void modificar(Fruta fruta) {
-      //lo que sea
+   /**
+    * Metodo encargado de realizar la modificacion de una fruta
+    * @param fruta a modficar
+    * @throws FrutaException controlada en caso de error
+    */
+   public void modificar(Fruta fruta) throws FrutaException {
+      Fruta frutaAlmacenada;
+      validarFruta(fruta);
+      frutaAlmacenada = buscar(fruta.getIdentificador());
+      if (frutaAlmacenada == null) {
+         throw new FrutaException("La fruta indicada NO existe");
+      }
+      frutaModelo.modificar(fruta);
    }
 
    /**
@@ -109,8 +125,7 @@ public class FrutaController {
      frutaEncontrada = buscar(fruta.getIdentificador());
      if (frutaEncontrada != null) {
         encontrada = true;
-     }
-     
+     }  
      return encontrada;
    }
 
