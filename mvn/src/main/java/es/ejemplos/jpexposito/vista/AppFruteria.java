@@ -2,6 +2,7 @@ package es.ejemplos.jpexposito.vista;
 
 import es.ejemplos.jpexposito.api.Fruta;
 import es.ejemplos.jpexposito.controlador.FrutaController;
+import es.ejemplos.jpexposito.excepcion.FicheroException;
 import es.ejemplos.jpexposito.excepcion.FrutaException;
 
 public class AppFruteria {
@@ -18,5 +19,9 @@ public class AppFruteria {
 
     public void insertar(Fruta fruta) throws FrutaException {
         frutaController.insertar(fruta);
+     }
+
+     public void eliminar(String identiticador) throws FrutaException, FicheroException {
+        frutaController.eliminar(identiticador);
      }
 }

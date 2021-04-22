@@ -1,6 +1,7 @@
 package es.ejemplos.jpexposito.controlador;
 
 import es.ejemplos.jpexposito.api.Fruta;
+import es.ejemplos.jpexposito.excepcion.FicheroException;
 import es.ejemplos.jpexposito.excepcion.FrutaException;
 import es.ejemplos.jpexposito.modelo.FrutaModelo;
 
@@ -9,6 +10,7 @@ import es.ejemplos.jpexposito.modelo.FrutaModelo;
  */
 public class FrutaController {
 
+   private static final String LA_FRUTA_INDICADA_NO_EXISTE = "La fruta indicada NO existe";
    FrutaModelo frutaModelo;
 
    public FrutaController() {
@@ -51,8 +53,9 @@ public class FrutaController {
     * Metodo encargado de insertar
     * @param fruta a insertar
     * @throws FrutaException con mensaje controlado
+    * @throws FicheroException
     */
-   public void insertar(Fruta fruta) throws FrutaException {
+   public void insertar(Fruta fruta) throws FrutaException, FicheroException {
       validarFruta(fruta);
       if (existe(fruta)) {
          throw new FrutaException("La fruta indicada ya existe");
@@ -64,11 +67,12 @@ public class FrutaController {
     * Metodo encargado de eliminar
     * @param fruta a eliminar
     * @throws FrutaException
+    * @throws FicheroException
     */
-   public void eliminar(Fruta fruta) throws FrutaException {
+   public void eliminar(Fruta fruta) throws FrutaException, FicheroException {
       validarFruta(fruta);
       if (!existe(fruta)) {
-         throw new FrutaException("La fruta indicada NO existe");
+         throw new FrutaException(LA_FRUTA_INDICADA_NO_EXISTE);
       }
       frutaModelo.eliminar(fruta); 
    }
@@ -77,14 +81,12 @@ public class FrutaController {
     * Meotod encargado de realiza la eliminacion de una fruta
     * @param identificador del elemento a eliminar
     * @throws FrutaException controlada con el error
+    * @throws FicheroException
     */
-   public void eliminar(String identificador) throws FrutaException {
+   public void eliminar(String identificador) throws FrutaException, FicheroException {
       Fruta fruta;
       fruta = buscar(identificador);
-      if (fruta == null) {
-         throw new FrutaException("La fruta indicada NO existe");
-      }
-      frutaModelo.eliminar(fruta); 
+      eliminar(fruta);
    }
 
    /**
@@ -108,7 +110,7 @@ public class FrutaController {
       validarFruta(fruta);
       frutaAlmacenada = buscar(fruta.getIdentificador());
       if (frutaAlmacenada == null) {
-         throw new FrutaException("La fruta indicada NO existe");
+         throw new FrutaException(LA_FRUTA_INDICADA_NO_EXISTE);
       }
       frutaModelo.modificar(fruta);
    }

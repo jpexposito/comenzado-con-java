@@ -54,7 +54,6 @@ public class UsuarioControlador {
     */
    public void insertar(Usuario usuario) throws UsuarioException {
       validar(usuario);
-
    }
 
     /**

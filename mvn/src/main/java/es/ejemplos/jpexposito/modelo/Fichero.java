@@ -1,15 +1,73 @@
 package es.ejemplos.jpexposito.modelo;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import es.ejemplos.jpexposito.api.Fruta;
 import es.ejemplos.jpexposito.excepcion.FicheroException;
 
 
 public class Fichero {
    
+   private static final String SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO = "Se ha producido un error en el volcado del fichero";
    private static final String RETORNO_CARRO = "\n";
+   private static final String NOMBRE_FICHERO = "Fichero-frutas.txt";
+   
 
+   /**
+    * Metodo encargado de almacenar una fruta en el fichero
+    * @param fruta a insertar
+    * @throws FicheroException controlado
+    */
+   public void insertar(Fruta fruta) throws FicheroException {
+      ArrayList<Fruta> listado;
+      listado = obtenerListado();
+      listado.add(fruta);
+      try {
+         crear(NOMBRE_FICHERO, listado.toString());
+      } catch (FicheroException exception) {
+        throw new FicheroException(SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO, exception);
+      }
+   }
+
+   /**
+    * Metodo encargado de eliminar una fruta del fichero
+    * @param fruta a eliminar 
+    * @throws FicheroException error controlado
+    */
+   public void eliminar (Fruta fruta) throws FicheroException {
+      ArrayList<Fruta> listado;
+      listado = obtenerListado();
+      listado.remove(fruta);
+      try {
+         crear(NOMBRE_FICHERO, listado.toString());
+      } catch (FicheroException exception) {
+        throw new FicheroException(SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO, exception);
+      }
+   }
+
+   /**
+    * Metodo encargado de modificar un elemento del fichero
+    * @param fruta
+    */
+   public void modificar (Fruta fruta) {
+      // limpiar el fichero
+      // volcar a fichero
+   }
+
+   /**
+    * Funcion encargada de obtener el listado de frutas del fichero
+    * @return listado de frutas
+    */
+   public ArrayList<Fruta> obtenerListado() {
+      ArrayList<Fruta> lista = new ArrayList<>();
+
+
+      return lista;
+   }
+
+   
    /**
     * Funcion encargada de leer un ficher
     * 
@@ -92,6 +150,7 @@ public class Fichero {
       }
       
    }
+
    /**
     * Funcion que verifica si se trata de un directorio no
     * @param path de la ruta a validad
