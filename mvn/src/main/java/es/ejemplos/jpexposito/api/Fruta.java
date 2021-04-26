@@ -1,10 +1,15 @@
 package es.ejemplos.jpexposito.api;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 /**
  * Clase fruta de la aplicacion
  */
-public class Fruta {
-   
+public class Fruta implements Serializable {
+   private static final long serialVersionUID = 1L;
+
    String identificador;
    String nombre;
    float precio;
@@ -29,6 +34,24 @@ public class Fruta {
       this.nombre = nombre;
       this.precio = precio;
       this.coste = coste;
+   }
+
+
+   /**
+    * Constructo que recibe una cadena de text
+    * @param cadena con la informacion
+    */
+
+   public Fruta(String cadena) {
+      ArrayList<Object> elementos = new ArrayList<>();
+      StringTokenizer tokenizer = new StringTokenizer(cadena, ",");
+      while (tokenizer.hasMoreElements()) {
+         elementos.add(tokenizer.nextToken());
+      }
+      this.identificador = (String) elementos.get(0);
+      this.nombre = (String) elementos.get(1);
+      this.precio = Float.parseFloat((String)elementos.get(2));
+      this.coste = Float.parseFloat((String)elementos.get(3));
    }
 
 
@@ -71,6 +94,13 @@ public class Fruta {
    public float beneficio() {
       return precio - coste;
    }
+
+
+   @Override
+   public String toString() {
+      return getIdentificador() + "," + getNombre() + "," + getPrecio() + "," + getCoste();
+   }
+   
 
 
 

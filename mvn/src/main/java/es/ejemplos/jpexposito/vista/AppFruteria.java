@@ -17,7 +17,7 @@ public class AppFruteria {
         System.out.println( "Hello World!" );
     }
 
-    public void insertar(Fruta fruta) throws FrutaException {
+    public void insertar(Fruta fruta) throws FrutaException, FicheroException {
         frutaController.insertar(fruta);
      }
 

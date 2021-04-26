@@ -25,8 +25,9 @@ public class FrutaModelo {
     * Funcion que busca una fruta a traves del identificar
     * @param identificador de la fruta
     * @return Fruta con el identificador especificado
+    * @throws FicheroException
     */
-   public Fruta buscar(String identificador) {
+   public Fruta buscar(String identificador) throws FicheroException {
      Fruta fruta = null;
      ArrayList<Fruta> listado;
      listado = fichero.obtenerListado();

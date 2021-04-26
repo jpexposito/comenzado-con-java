@@ -59,10 +59,33 @@ public class Fichero {
    /**
     * Funcion encargada de obtener el listado de frutas del fichero
     * @return listado de frutas
+    * @throws FicheroException
     */
-   public ArrayList<Fruta> obtenerListado() {
+   public ArrayList<Fruta> obtenerListado() throws FicheroException {
       ArrayList<Fruta> lista = new ArrayList<>();
+      File fichero = null;
+      Scanner scanner = null;
 
+      try {
+         fichero = new File(NOMBRE_FICHERO);
+         if (!validarFichero(fichero)) {
+            throw new FicheroException("El fichero a leer no existe");
+         }
+         scanner = new Scanner(fichero);
+         while (scanner.hasNextLine()) {
+            String linea = scanner.nextLine(); // Guardamos la linea en un String
+            Fruta fruta = new Fruta(linea);
+            lista.add(fruta);
+         }
+      } catch (FicheroException e) {  
+            throw e;
+      }catch (Exception e) {
+            throw new FicheroException("Se ha producido un error en la lectura del fichero", e);
+      } finally {
+         if (scanner != null) {
+            scanner.close();
+         }
+      }
 
       return lista;
    }
