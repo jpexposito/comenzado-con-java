@@ -42,8 +42,8 @@ public class FrutaModelo {
      return fruta;
    }
 
-   public void modificar(Fruta fruta) {
-      //lo que sea
+   public void modificar(Fruta frutaAlmacenada, Fruta fruta) throws FicheroException {
+      fichero.modificar(frutaAlmacenada, fruta);
    }
    
 }

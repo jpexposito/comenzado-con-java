@@ -93,8 +93,9 @@ public class FrutaController {
     * Metodo encargado de buscar por identificador
     * @param identificador para localizar la fruta
     * @return fruta a traves del identificador
+    * @throws FicheroException
     */
-   public Fruta buscar(String identificador) {
+   public Fruta buscar(String identificador) throws FicheroException {
       Fruta fruta = null;
       fruta = frutaModelo.buscar(identificador);
       return fruta;
@@ -104,23 +105,25 @@ public class FrutaController {
     * Metodo encargado de realizar la modificacion de una fruta
     * @param fruta a modficar
     * @throws FrutaException controlada en caso de error
+    * @throws FicheroException
     */
-   public void modificar(Fruta fruta) throws FrutaException {
+   public void modificar(Fruta fruta) throws FrutaException, FicheroException {
       Fruta frutaAlmacenada;
       validarFruta(fruta);
       frutaAlmacenada = buscar(fruta.getIdentificador());
       if (frutaAlmacenada == null) {
          throw new FrutaException(LA_FRUTA_INDICADA_NO_EXISTE);
       }
-      frutaModelo.modificar(fruta);
+      frutaModelo.modificar(frutaAlmacenada, fruta);
    }
 
    /**
     * Funcion encargada de verificar si existe la fruta
     * @param fruta a encontrar
     * @return true/false
+    * @throws FicheroException error controlado
     */
-   private boolean existe(Fruta fruta) {
+   private boolean existe(Fruta fruta) throws FicheroException {
      boolean encontrada = false;
      Fruta frutaEncontrada;
 

@@ -49,11 +49,18 @@ public class Fichero {
 
    /**
     * Metodo encargado de modificar un elemento del fichero
-    * @param fruta
+    * @param frutaAlamcenada elemento a actualizar
+    * @param fruta elemento con la informacion actualizada
+    * @throws FicheroException
     */
-   public void modificar (Fruta fruta) {
-      // limpiar el fichero
-      // volcar a fichero
+   public void modificar (Fruta frutaAlmacenada, Fruta fruta) throws FicheroException {
+      ArrayList<Fruta> listado = obtenerListado(); 
+      int posicion = -1;
+      posicion = listado.indexOf(frutaAlmacenada);
+      listado.remove(posicion);
+      listado.add(posicion, fruta);
+      crear(NOMBRE_FICHERO, listado.toString());
+      
    }
 
    /**
