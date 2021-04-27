@@ -109,6 +109,7 @@ public class FrutaController {
     */
    public void modificar(Fruta fruta) throws FrutaException, FicheroException {
       Fruta frutaAlmacenada;
+      
       validarFruta(fruta);
       frutaAlmacenada = buscar(fruta.getIdentificador());
       if (frutaAlmacenada == null) {

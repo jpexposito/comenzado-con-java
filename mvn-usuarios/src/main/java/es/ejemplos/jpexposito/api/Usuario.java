@@ -1,5 +1,8 @@
 package es.ejemplos.jpexposito.api;
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 /**
  * Clase Usuario que pertence a la API
  */
@@ -28,6 +31,22 @@ public class Usuario {
       this.nombre = nombre;
       this.apellidos = apellidos;
       this.edad = edad;
+   }
+
+   /**
+    * Copnstructor de la clase con una linea de texto
+    * @param linea a parsear
+    */
+   public Usuario(String linea) { 
+    ArrayList<Object> elementos = new ArrayList<>();
+    StringTokenizer tokenizer = new StringTokenizer(linea, ",");
+    while (tokenizer.hasMoreElements()) {
+       elementos.add(tokenizer.nextToken());
+    }
+    this.identificador = (String) elementos.get(0);
+    this.nombre = (String) elementos.get(1);
+    this.apellidos = (String) elementos.get(2);
+    this.edad = Integer.parseInt((String) elementos.get(3));
    }
 
    /**
@@ -65,6 +84,14 @@ public class Usuario {
    public void setEdad(int edad) {
       this.edad = edad;
    }
+
+
+   @Override
+   public String toString() {
+      return getIdentificador() + "," + getNombre() + ","
+       +getApellidos() + "," + getEdad();
+   }
+
 
 
    

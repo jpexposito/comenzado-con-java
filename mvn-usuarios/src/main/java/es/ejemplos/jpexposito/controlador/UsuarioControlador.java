@@ -6,6 +6,7 @@ import es.ejemplos.jpexposito.modelo.UsuarioModelo;
 
 public class UsuarioControlador {
 
+   private static final String EL_USUARIO_NO_SE_ENCUENTRA_ALMACENADO = "El usuario NO se encuentra almacenado";
    private static final String EL_IDENTIFICADOR_ES_NULO_O_VACIO = "El identificador es nulo o vacio";
    private static final int EDAD_MINIMA = 18;
    UsuarioModelo usuarioModelo;
@@ -19,7 +20,7 @@ public class UsuarioControlador {
     * @param usuario a validar
     * @throws UsuarioException exception personalizada del error
     */
-   public void validar(Usuario usuario) throws UsuarioException {
+   private void validar(Usuario usuario) throws UsuarioException {
       String mensaje = "";
 
       if (usuario == null) {
@@ -54,6 +55,10 @@ public class UsuarioControlador {
     */
    public void insertar(Usuario usuario) throws UsuarioException {
       validar(usuario);
+      if (existe(usuario.getIdentificador())) {
+         throw new UsuarioException("El usuario se encuentra almacenado");
+      }
+      usuarioModelo.insertar(usuario);
    }
 
     /**
@@ -63,6 +68,10 @@ public class UsuarioControlador {
     */
    public void eliminar(Usuario usuario) throws UsuarioException {
       validar(usuario);
+      if (!existe(usuario.getIdentificador())) {
+         throw new UsuarioException(EL_USUARIO_NO_SE_ENCUENTRA_ALMACENADO);
+      }
+      usuarioModelo.eleminar(usuario);
    }
 
     /**
@@ -76,23 +85,34 @@ public class UsuarioControlador {
    /**
     * Funcion que realiza la busqueda de un usuario
     * @param identificador del usuario
-    * @throws UsuarioException
+    * @return Usuario encontrado
+    * @throws UsuarioException error controla
     */
-   public void buscar(String identificador) throws UsuarioException {
+   public Usuario buscar(String identificador) throws UsuarioException { 
+      Usuario usuario = null;
       if (identificador == null || identificador.isEmpty()) {
          throw new UsuarioException(EL_IDENTIFICADOR_ES_NULO_O_VACIO);
       }
+      usuario = usuarioModelo.buscar(identificador);
+      return usuario;
    }
 
    /**
     * Funcion que muestra un usuario 
     * @param identificador del usuario a mostrar
-    * @throws UsuarioException
+    * @return informacion del asociada al usuario
+    * @throws UsuarioException error controlado
     */
-   public void mostrar(String identificador) throws UsuarioException {
+   public String mostrar(String identificador) throws UsuarioException {
       if (identificador == null || identificador.isEmpty()) {
          throw new UsuarioException(EL_IDENTIFICADOR_ES_NULO_O_VACIO);
       }
+      Usuario usuario = buscar(identificador);
+      if (usuario == null) {
+         throw new UsuarioException(EL_USUARIO_NO_SE_ENCUENTRA_ALMACENADO);
+      }
+      return usuario.toString();
+      
    }
 
    /**
@@ -100,6 +120,23 @@ public class UsuarioControlador {
     */
    public void mostrarTodos() {
 
+   }
+
+   /**
+    * Funcion que verifica si un usario existe 
+    * @param identificador encontrar
+    * @return true/false
+    */
+   public boolean existe(String identificador) throws UsuarioException {
+      boolean encontrado = false;
+      Usuario usuario = null;
+
+      usuario = buscar(identificador);
+      if (usuario !=null) {
+         encontrado = true;
+      }
+
+      return encontrado;
    }
 
    

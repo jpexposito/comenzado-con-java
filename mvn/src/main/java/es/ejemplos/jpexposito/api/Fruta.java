@@ -8,6 +8,8 @@ import java.util.StringTokenizer;
  * Clase fruta de la aplicacion
  */
 public class Fruta implements Serializable {
+   private static final String DELIMITADOR = ",";
+
    private static final long serialVersionUID = 1L;
 
    String identificador;
@@ -44,7 +46,7 @@ public class Fruta implements Serializable {
 
    public Fruta(String cadena) {
       ArrayList<Object> elementos = new ArrayList<>();
-      StringTokenizer tokenizer = new StringTokenizer(cadena, ",");
+      StringTokenizer tokenizer = new StringTokenizer(cadena, DELIMITADOR);
       while (tokenizer.hasMoreElements()) {
          elementos.add(tokenizer.nextToken());
       }
@@ -98,7 +100,7 @@ public class Fruta implements Serializable {
 
    @Override
    public String toString() {
-      return getIdentificador() + "," + getNombre() + "," + getPrecio() + "," + getCoste();
+      return getIdentificador() + DELIMITADOR + getNombre() + DELIMITADOR + getPrecio() + DELIMITADOR + getCoste();
    }
    
 
