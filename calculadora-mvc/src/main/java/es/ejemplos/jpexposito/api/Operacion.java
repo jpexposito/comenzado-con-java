@@ -8,16 +8,21 @@ public class Operacion {
    private char operando;
 
    /**
+    * Constructor por defecto
+    */
+   public Operacion() {}
+
+   /**
     * Constructori por defecto para todas las operaciones
     * @param numero1 de la operacion
     * @param numero2 de la operacion
-    * @param op de la operacion
+    * @param operando de la operacion
     */
-   public Operacion(double numero1, double numero2, char op) {
+   public Operacion(double numero1, double numero2, char operando) {
        
        this.numero1 = numero1;
        this.numero2 = numero2;
-       this.operando = op;
+       this.operando = operando;
 
    }
 

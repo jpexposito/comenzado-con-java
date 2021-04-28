@@ -14,9 +14,7 @@ public class OperacionController {
    OperacionModelo operacionModelo;
    
    public OperacionController() {
-      System.out.println( "Creado controlador" );
       if (operacionModelo == null) {
-         System.out.println( "Creando modelo" );
          operacionModelo = new OperacionModelo();
       }
    }
@@ -33,13 +31,13 @@ public class OperacionController {
          throw new OperacionException(mensaje);
       }
       if (operacion.getNumero1() < 0) {
-         mensaje = "El numero 1 debe de ser mayor o igual a 0";
+         mensaje += "El numero 1 debe de ser mayor o igual a 0";
       }
       if (operacion.getNumero2() < 0) {
-         mensaje = "El numero 2 debe de ser mayor o igual a 0";
+         mensaje += "El numero 2 debe de ser mayor o igual a 0";
       }
-      if (String.valueOf(operacion.getOperando()).isEmpty()  ) {
-         mensaje = "El operador debe de estar relleno";
+      if (operacion.getOperando() == ' ' ) {
+         mensaje += "El operador debe de estar relleno";
       }
       if (!mensaje.isEmpty()) {
          throw new OperacionException(mensaje);

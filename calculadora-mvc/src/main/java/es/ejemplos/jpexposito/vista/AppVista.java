@@ -15,9 +15,7 @@ public class AppVista {
     static OperacionController operacionController;
     public static void main( String[] args ) throws OperacionException{
         if (operacionController == null) {
-            System.out.println( "Creando el controlador" );
             operacionController = new OperacionController();
-            
         }
         menu();
     }
@@ -43,22 +41,22 @@ public class AppVista {
  
                 switch (opcion) {
                     case 1:
-                        operacion = realizarOperacion('+');
+                        operacion = realizarOperacion('+', sn);
                         resultado = operacionController.suma(operacion);
                         System.out.println("Resultado obtenido:"+resultado);
                         break;
                     case 2:
-                        operacion = realizarOperacion('-');
+                        operacion = realizarOperacion('-', sn);
                         resultado = operacionController.resta(operacion);
                         System.out.println("Resultado obtenido:"+resultado);
                         break;
                     case 3:
-                        operacion = realizarOperacion('*');
+                        operacion = realizarOperacion('*', sn);
                         resultado = operacionController.multiplicacion(operacion);
                         System.out.println("Resultado obtenido:"+resultado);
                         break;
                     case 4:
-                        operacion = realizarOperacion('/');
+                        operacion = realizarOperacion('/', sn);
                         resultado = operacionController.division(operacion);
                         System.out.println("Resultado obtenido:"+resultado);
                         break;
@@ -76,8 +74,8 @@ public class AppVista {
  
     }
 
-    private static Operacion realizarOperacion(char operando) {
-        Scanner sn = new Scanner(System.in);
+    public static Operacion realizarOperacion(char operando, Scanner sn) {
+
         System.out.println("Introduzca el valor 1");
         double numero1 = sn.nextDouble();
         System.out.println("Introduzca el valor 2");
