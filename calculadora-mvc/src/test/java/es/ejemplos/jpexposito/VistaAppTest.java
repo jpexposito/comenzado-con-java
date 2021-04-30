@@ -30,7 +30,7 @@ public class VistaAppTest {
    public void sumaTest(){
       
       operacion = null;
-      String[] args = null;
+      args = null;
       testIn = new ByteArrayInputStream("1 2 2 5".getBytes());
       System.setIn(testIn);
       try {
