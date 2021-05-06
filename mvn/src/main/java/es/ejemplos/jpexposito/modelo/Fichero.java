@@ -81,8 +81,10 @@ public class Fichero {
          scanner = new Scanner(fichero);
          while (scanner.hasNextLine()) {
             String linea = scanner.nextLine(); // Guardamos la linea en un String
-            Fruta fruta = new Fruta(linea);
-            lista.add(fruta);
+            if (linea != null && !linea.isEmpty()) {
+               Fruta fruta = new Fruta(linea);
+               lista.add(fruta);
+            }
          }
       } catch (FicheroException e) {  
             throw e;
