@@ -45,19 +45,59 @@ public class Bbdd {
    }
 
    
-   //CRUD
-   public void insertar(Fruta fruta) {
-
+   /**
+    * Metodo encargado de realizar la insercion 
+    * @param fruta a insertar
+    * @throws BbddException error controlado
+    */
+   public void insertar(Fruta fruta) throws BbddException {
+      String sql ="INSERT INTO FRUTA (identificador, nombre, precio coste) " +
+      " VALUES ('"+fruta.getIdentificador()+"', '"+fruta.getNombre()+"',"
+      +" '"+fruta.getPrecio()+"', '"+fruta.getCoste()+"')";
+      actualizar(sql);
    }
 
-   public void eliminar (Fruta fruta) {
-
+   /**
+    * Metodo encargado de realizar la actualizacion 
+    * @param fruta a actualizar
+    * @throws BbddException error controlado
+    */
+   public void eliminar (Fruta fruta) throws BbddException {
+      String sql ="DELETE from Fruta where identificador = '"+fruta.getIdentificador()+"'";
+      actualizar(sql);
    }
 
-   public void modificar (Fruta fruta) {
-
+   /**
+    * Metodo encargado de realizar la eliminacion 
+    * @param fruta a eliminar
+    * @throws BbddException error controlado
+    */
+   public void modificar (Fruta fruta) throws BbddException {
+      String sql ="UPDATE FRUTA SET nombre = '"+fruta.getNombre()+"',"
+      +" precio = '"+fruta.getPrecio()+"', coste ='"+fruta.getCoste()+"'"
+      +" WHERE identificador = '" + fruta.getIdentificador()+"'";
+      actualizar(sql);
    }
 
+/**
+ * Metodo encargado de realizar la actualizacion de la BBDD
+ * @param sql a ejecutar
+ * @throws BbddException error controlado
+ */
+   private void actualizar(String sql) throws BbddException {
+      Statement statement = null;
+      Connection connection = null;
+      try {
+         connection = getConnection();
+         statement = connection.createStatement();
+         statement.executeUpdate(sql);  
+      } catch (Exception exception) {
+        throw new BbddException("Se ha producido un error realizando la consulta", exception);
+      } finally {
+         closeConecction(connection, statement, null);
+      }
+   
+   }
 
    /**
     * Funcion que realiza la consulta sobre la BBDD y la tabla Fruta

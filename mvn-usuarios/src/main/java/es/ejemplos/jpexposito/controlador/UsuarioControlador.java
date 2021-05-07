@@ -1,6 +1,8 @@
 package es.ejemplos.jpexposito.controlador;
 
 import es.ejemplos.jpexposito.api.Usuario;
+import es.ejemplos.jpexposito.excepcion.BbddException;
+import es.ejemplos.jpexposito.excepcion.FicheroException;
 import es.ejemplos.jpexposito.exceptions.UsuarioException;
 import es.ejemplos.jpexposito.modelo.UsuarioModelo;
 
@@ -52,8 +54,9 @@ public class UsuarioControlador {
     * Metodo encargado de realizar la insercion de un usuario
     * @param usuario a insertar
     * @throws UsuarioException controlada
+    * @throws FicheroException
     */
-   public void insertar(Usuario usuario) throws UsuarioException {
+   public void insertar(Usuario usuario) throws UsuarioException, FicheroException, BbddException {
       validar(usuario);
       if (existe(usuario.getIdentificador())) {
          throw new UsuarioException("El usuario se encuentra almacenado");
@@ -65,8 +68,9 @@ public class UsuarioControlador {
     * Metodo encargado de realizar la eliminacion de un usuario
     * @param usuario a eliminar
     * @throws UsuarioException
+    * @throws FicheroException
     */
-   public void eliminar(Usuario usuario) throws UsuarioException {
+   public void eliminar(Usuario usuario) throws UsuarioException, FicheroException, BbddException {
       validar(usuario);
       if (!existe(usuario.getIdentificador())) {
          throw new UsuarioException(EL_USUARIO_NO_SE_ENCUENTRA_ALMACENADO);
@@ -87,8 +91,10 @@ public class UsuarioControlador {
     * @param identificador del usuario
     * @return Usuario encontrado
     * @throws UsuarioException error controla
+    * @throws FicheroException
+    * @throws BbddException
     */
-   public Usuario buscar(String identificador) throws UsuarioException { 
+   public Usuario buscar(String identificador) throws UsuarioException, FicheroException, BbddException { 
       Usuario usuario = null;
       if (identificador == null || identificador.isEmpty()) {
          throw new UsuarioException(EL_IDENTIFICADOR_ES_NULO_O_VACIO);
@@ -103,7 +109,7 @@ public class UsuarioControlador {
     * @return informacion del asociada al usuario
     * @throws UsuarioException error controlado
     */
-   public String mostrar(String identificador) throws UsuarioException {
+   public String mostrar(String identificador) throws UsuarioException, FicheroException, BbddException {
       if (identificador == null || identificador.isEmpty()) {
          throw new UsuarioException(EL_IDENTIFICADOR_ES_NULO_O_VACIO);
       }
@@ -127,7 +133,7 @@ public class UsuarioControlador {
     * @param identificador encontrar
     * @return true/false
     */
-   public boolean existe(String identificador) throws UsuarioException {
+   public boolean existe(String identificador) throws UsuarioException, FicheroException, BbddException {
       boolean encontrado = false;
       Usuario usuario = null;
 

@@ -8,8 +8,10 @@ import es.ejemplos.jpexposito.excepcion.FicheroException;
 public class FrutaModelo {
 
    Fichero fichero;
+   BerbyBbdd persistencia;
 
    public FrutaModelo() {
+      persistencia = new BerbyBbdd("org.apache.derby.jdbc.EmbeddedDriver", "mem:derby.db", null, null);
       fichero = new Fichero();
    }
 

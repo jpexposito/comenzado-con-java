@@ -203,7 +203,7 @@ public class Fichero {
       int i = 0;
 
       while (i < listado.size() && usuario == null) {   
-         if (identificador.equals(listado.get(i).getIdentificador()) {
+         if (identificador.equals(listado.get(i).getIdentificador())) {
             usuario = listado.get(i);
          }
          i++;
