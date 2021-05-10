@@ -1,8 +1,8 @@
 package es.ejemplos.jpexposito.controlador;
 
 import es.ejemplos.jpexposito.api.Usuario;
-import es.ejemplos.jpexposito.excepcion.BbddException;
-import es.ejemplos.jpexposito.excepcion.FicheroException;
+import es.ejemplos.jpexposito.exceptions.PersistenciaException;
+import es.ejemplos.jpexposito.exceptions.FicheroException;
 import es.ejemplos.jpexposito.exceptions.UsuarioException;
 import es.ejemplos.jpexposito.modelo.UsuarioModelo;
 
@@ -56,7 +56,7 @@ public class UsuarioControlador {
     * @throws UsuarioException controlada
     * @throws FicheroException
     */
-   public void insertar(Usuario usuario) throws UsuarioException, FicheroException, BbddException {
+   public void insertar(Usuario usuario) throws UsuarioException,  PersistenciaException {
       validar(usuario);
       if (existe(usuario.getIdentificador())) {
          throw new UsuarioException("El usuario se encuentra almacenado");
@@ -70,11 +70,11 @@ public class UsuarioControlador {
     * @throws UsuarioException
     * @throws FicheroException
     */
-   public void eliminar(Usuario usuario) throws UsuarioException, FicheroException, BbddException {
+   public void eliminar(Usuario usuario) throws UsuarioException,  PersistenciaException {
       validar(usuario);
       if (!existe(usuario.getIdentificador())) {
          throw new UsuarioException(EL_USUARIO_NO_SE_ENCUENTRA_ALMACENADO);
-      }
+      } 
       usuarioModelo.eleminar(usuario);
    }
 
@@ -82,9 +82,14 @@ public class UsuarioControlador {
     * Metodo encargado de realizar la modificacion de un usuario
     * @param usuario a modificar
     * @throws UsuarioException controlada
+    * @throws PersistenciaException
     */
-   public void modificar(Usuario usuario) throws UsuarioException {
+   public void modificar(Usuario usuario) throws UsuarioException, PersistenciaException {
       validar(usuario);
+      if (!existe(usuario.getIdentificador())) {
+         throw new UsuarioException(EL_USUARIO_NO_SE_ENCUENTRA_ALMACENADO);
+      }
+      usuarioModelo.modificar(usuario);
    }
    /**
     * Funcion que realiza la busqueda de un usuario
@@ -92,9 +97,9 @@ public class UsuarioControlador {
     * @return Usuario encontrado
     * @throws UsuarioException error controla
     * @throws FicheroException
-    * @throws BbddException
+    * @throws PersistenciaException
     */
-   public Usuario buscar(String identificador) throws UsuarioException, FicheroException, BbddException { 
+   public Usuario buscar(String identificador) throws UsuarioException,  PersistenciaException { 
       Usuario usuario = null;
       if (identificador == null || identificador.isEmpty()) {
          throw new UsuarioException(EL_IDENTIFICADOR_ES_NULO_O_VACIO);
@@ -109,7 +114,7 @@ public class UsuarioControlador {
     * @return informacion del asociada al usuario
     * @throws UsuarioException error controlado
     */
-   public String mostrar(String identificador) throws UsuarioException, FicheroException, BbddException {
+   public String mostrar(String identificador) throws UsuarioException,  PersistenciaException {
       if (identificador == null || identificador.isEmpty()) {
          throw new UsuarioException(EL_IDENTIFICADOR_ES_NULO_O_VACIO);
       }
@@ -133,7 +138,7 @@ public class UsuarioControlador {
     * @param identificador encontrar
     * @return true/false
     */
-   public boolean existe(String identificador) throws UsuarioException, FicheroException, BbddException {
+   public boolean existe(String identificador) throws UsuarioException,  PersistenciaException {
       boolean encontrado = false;
       Usuario usuario = null;
 

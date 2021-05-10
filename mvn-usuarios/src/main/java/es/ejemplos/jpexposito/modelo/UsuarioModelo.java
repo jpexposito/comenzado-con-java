@@ -1,20 +1,21 @@
 package es.ejemplos.jpexposito.modelo;
 
-import java.util.ArrayList;
-
 import es.ejemplos.jpexposito.api.Usuario;
-import es.ejemplos.jpexposito.excepcion.BbddException;
-import es.ejemplos.jpexposito.excepcion.FicheroException;
+import es.ejemplos.jpexposito.exceptions.PersistenciaException;
 
 public class UsuarioModelo {
    //Fichero persistencia;
    DerbyBddd persistencia;
+   MySqlDbdd persistenciaMySql;
+   Fichero persistenciaFichero;
 
    /**
     * Constructor por defecto 
     */
    public UsuarioModelo() {
       persistencia = new DerbyBddd("org.apache.derby.jdbc.EmbeddedDriver", "derbi.db",null,null);
+      persistenciaMySql = new MySqlDbdd("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/test", "usuario", "password");
+      persistenciaFichero = new Fichero();
    }
    
 
@@ -22,10 +23,11 @@ public class UsuarioModelo {
     * Metodo encargado de realizar la insercion de un usuario
     * @param usuario a insertar
     * @throws FicheroException controlada
-    * @throws BbddException
+    * @throws PersistenciaException
     */
-   public void insertar(Usuario usuario) throws FicheroException, BbddException {
+   public void insertar(Usuario usuario) throws  PersistenciaException {
       persistencia.insertar(usuario);
+      persistenciaFichero.insertar(usuario);
    }
 
    /**
@@ -33,16 +35,17 @@ public class UsuarioModelo {
     * @param usuario a eliminar
     * @throws FicheroException controlada
     */
-   public void eleminar(Usuario usuario) throws FicheroException, BbddException {
-      persistencia.eliminar(usuario);
+   public void eleminar(Usuario usuario) throws  PersistenciaException {
+      persistencia.eliminar(usuario.getIdentificador());
    }
 
    /**
     * Metodo encargado de realizar la modificacion de un usuario
     * @param usuario a modificar
+    * @throws PersistenciaException
     */
-   public void modificar(Usuario usuario) {
-     
+   public void modificar(Usuario usuario) throws PersistenciaException {
+      persistencia.update(usuario);
    }
 
    /**
@@ -51,7 +54,7 @@ public class UsuarioModelo {
     * @return Usuario a buscar
     * @throws FicheroException
     */
-   public Usuario buscar(String identificador) throws FicheroException, BbddException {
+   public Usuario buscar(String identificador) throws  PersistenciaException {
      Usuario usuario = null;
      usuario = persistencia.buscarUsuario(identificador);
      return usuario;

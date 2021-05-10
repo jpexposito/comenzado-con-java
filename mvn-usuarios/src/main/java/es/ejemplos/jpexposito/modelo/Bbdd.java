@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.ejemplos.jpexposito.api.Usuario;
-import es.ejemplos.jpexposito.excepcion.BbddException;
+import es.ejemplos.jpexposito.exceptions.PersistenciaException;
 
 public class Bbdd {
 
@@ -28,9 +28,9 @@ public class Bbdd {
    /**
     * Funcion encargada de realizar la conexion con la BBDD
     * @return conexion abierta
-    * @throws BbddException
+    * @throws PersistenciaException
     */
-   public Connection getConnection() throws BbddException {
+   public Connection getConnection() throws PersistenciaException {
       if (connection == null) {
          try {
             Class.forName(driver);
@@ -41,7 +41,7 @@ public class Bbdd {
             }
             connection = DriverManager.getConnection(urlConexion, usuario, password);
          } catch (ClassNotFoundException | SQLException exception) {
-            throw new BbddException("No se ha podido estabalecer la conexion", exception);
+            throw new PersistenciaException("No se ha podido estabalecer la conexion", exception);
          }
       }
       return connection;
@@ -52,9 +52,9 @@ public class Bbdd {
     * 
     * @param identificador del usuario
     * @return Objeto usuario
-    * @throws BbddException
+    * @throws PersistenciaException
     */
-   public Usuario buscarUsuario(String identificador) throws BbddException {
+   public Usuario buscarUsuario(String identificador) throws PersistenciaException {
       Usuario usuario = null;
       String sql = "SELECT * FROM usuario WHERE identificador='"+identificador+"'";
       ArrayList<Usuario> lista = buscar(sql);
@@ -67,9 +67,9 @@ public class Bbdd {
    /**
     * Funcion que obtiene todos los usuarios de la BBDD
     * @return lista usuarios
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-    public ArrayList<Usuario> buscarTodos() throws BbddException {
+    public ArrayList<Usuario> buscarTodos() throws PersistenciaException {
       String sql = "SELECT * FROM usuario ";
       return buscar(sql);
    }
@@ -77,9 +77,9 @@ public class Bbdd {
     * Funcion que realiza una consulta sobre una sentencia sql dada
     * @param sql de la consulta
     * @return lista resultados (0..n) Usuasios
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-   private ArrayList<Usuario> buscar(String sql) throws BbddException {
+   private ArrayList<Usuario> buscar(String sql) throws PersistenciaException {
       ArrayList<Usuario> lista = new ArrayList<>();
       Statement statement = null;
       ResultSet resultSet = null;
@@ -98,7 +98,7 @@ public class Bbdd {
             lista.add(usuario);
          }
       } catch (SQLException exception) {
-         throw new BbddException("Se ha producido un error en la busqueda", exception);
+         throw new PersistenciaException("Se ha producido un error en la busqueda", exception);
       } finally {
          closeConecction(connection, statement, resultSet);
       }
@@ -110,9 +110,9 @@ public class Bbdd {
     * Metodo encargado de realizar la insercion en la BBDD
     * 
     * @param usuario a insertar
-    * @throws BbddException
+    * @throws PersistenciaException
     */
-   public void insertar(Usuario usuario) throws BbddException {
+   public void insertar(Usuario usuario) throws PersistenciaException {
       String sql = "INSERT INTO usuario (identificador, nombre, apeliidos, edad)"+
       " VALUES ('"+usuario.getIdentificador()+"','"+usuario.getNombre()+"','"
       +usuario.getApellidos()+"','"+usuario.getEdad()+"')";
@@ -122,9 +122,9 @@ public class Bbdd {
    /**
     * Metodo encargado de realizar la actualizacion de un usuario
     * @param usuario a actualizar
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-   public void update(Usuario usuario) throws BbddException {
+   public void update(Usuario usuario) throws PersistenciaException {
       String sql = "UPDATE usuario set nombre = " + usuario.getNombre() + ",  apellidos = " + usuario.getApellidos()
             + ",  edad = " + usuario.getEdad() + " WHERE identificador = " + usuario.getIdentificador();
       update(sql);
@@ -133,9 +133,9 @@ public class Bbdd {
     * Metodo encargado de realizar la actualizacion en la BBDD
     * 
     * @param usuario a actualizar
-    * @throws BbddException
+    * @throws PersistenciaException
     */
-   public void eliminar(String identificador) throws BbddException {
+   public void eliminar(String identificador) throws PersistenciaException {
       String sql = "DELETE FROM usaurio WHERE identificador = '" + identificador + "'";
       update(sql);
    }
@@ -143,16 +143,16 @@ public class Bbdd {
    /**
     * Metodo encargado de realizar las inserciones/modificaciones/eliminacion de la BBDD
     * @param sql con la sentencia
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-   public void update(String sql) throws BbddException {
+   public void update(String sql) throws PersistenciaException {
       Statement statement = null;
       try {
          connection= getConnection();
          statement = connection.prepareStatement(sql);
          statement.executeUpdate(sql);
       } catch (SQLException exception) {
-         throw new BbddException("Se ha producido un error en la busqueda", exception);
+         throw new PersistenciaException("Se ha producido un error en la busqueda", exception);
       } finally {
          closeConecction(connection, statement, null);
       }
@@ -164,9 +164,9 @@ public class Bbdd {
     * @param connection contra la BBDD
     * @param statement  de la operacion
     * @param resultSet  resultado
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-   private void closeConecction(Connection connection, Statement statement, ResultSet resultSet) throws BbddException {
+   private void closeConecction(Connection connection, Statement statement, ResultSet resultSet) throws PersistenciaException {
       try {
          if (resultSet != null) {
             resultSet.close();
@@ -178,7 +178,7 @@ public class Bbdd {
             connection.close();
          }
       } catch (Exception e) {
-         throw new BbddException("Se ha producido un error cerrando la sesion con la BBDD");
+         throw new PersistenciaException("Se ha producido un error cerrando la sesion con la BBDD");
       }
 
    }

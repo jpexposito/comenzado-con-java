@@ -1,13 +1,13 @@
-package es.ejemplos.jpexposito.excepcion;
+package es.ejemplos.jpexposito.exceptions;
 
-public class BbddException  extends Exception{
+public class PersistenciaException  extends Exception{
    private static final long serialVersionUID = 1L;   
    
    /**
     * Constructor con el mensaje personalizado
     * @param mensaje personalizado
     */
-    public BbddException (String mensaje) {
+    public PersistenciaException (String mensaje) {
       super(mensaje);
    }
 
@@ -16,7 +16,7 @@ public class BbddException  extends Exception{
     * @param mensaje de la excepcion
     * @param exception que produce el error
     */
-   public BbddException (String mensaje, Exception exception) {
+   public PersistenciaException (String mensaje, Exception exception) {
       super(mensaje, exception);
    }
 
