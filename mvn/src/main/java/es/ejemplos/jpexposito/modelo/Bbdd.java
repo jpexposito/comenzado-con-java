@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import es.ejemplos.jpexposito.api.Fruta;
-import es.ejemplos.jpexposito.excepcion.BbddException;
+import es.ejemplos.jpexposito.excepcion.PersistenciaException;
 
 public class Bbdd {
 
@@ -24,9 +24,9 @@ public class Bbdd {
    /**
     * Funcion encargada de realizar la conexion con la BBDD
     * @return la coneccion
-    * @throws BbddException controlado
+    * @throws PersistenciaException controlado
     */
-   private Connection getConnection() throws BbddException {
+   private Connection getConnection() throws PersistenciaException {
       Connection connection = null;
 
       try {
@@ -37,7 +37,7 @@ public class Bbdd {
          DriverManager.getConnection(url, usuario, password);
       }
       } catch (Exception exception) {
-         throw new BbddException("No se ha podido establecer la coneccion con la BBDD",exception);
+         throw new PersistenciaException("No se ha podido establecer la coneccion con la BBDD",exception);
       }
 
       
@@ -48,9 +48,9 @@ public class Bbdd {
    /**
     * Metodo encargado de realizar la insercion 
     * @param fruta a insertar
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-   public void insertar(Fruta fruta) throws BbddException {
+   public void insertar(Fruta fruta) throws PersistenciaException {
       String sql ="INSERT INTO FRUTA (identificador, nombre, precio coste) " +
       " VALUES ('"+fruta.getIdentificador()+"', '"+fruta.getNombre()+"',"
       +" '"+fruta.getPrecio()+"', '"+fruta.getCoste()+"')";
@@ -60,9 +60,9 @@ public class Bbdd {
    /**
     * Metodo encargado de realizar la actualizacion 
     * @param fruta a actualizar
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-   public void eliminar (Fruta fruta) throws BbddException {
+   public void eliminar (Fruta fruta) throws PersistenciaException {
       String sql ="DELETE from Fruta where identificador = '"+fruta.getIdentificador()+"'";
       actualizar(sql);
    }
@@ -70,9 +70,9 @@ public class Bbdd {
    /**
     * Metodo encargado de realizar la eliminacion 
     * @param fruta a eliminar
-    * @throws BbddException error controlado
+    * @throws PersistenciaException error controlado
     */
-   public void modificar (Fruta fruta) throws BbddException {
+   public void modificar (Fruta fruta) throws PersistenciaException {
       String sql ="UPDATE FRUTA SET nombre = '"+fruta.getNombre()+"',"
       +" precio = '"+fruta.getPrecio()+"', coste ='"+fruta.getCoste()+"'"
       +" WHERE identificador = '" + fruta.getIdentificador()+"'";
@@ -82,9 +82,9 @@ public class Bbdd {
 /**
  * Metodo encargado de realizar la actualizacion de la BBDD
  * @param sql a ejecutar
- * @throws BbddException error controlado
+ * @throws PersistenciaException error controlado
  */
-   private void actualizar(String sql) throws BbddException {
+   private void actualizar(String sql) throws PersistenciaException {
       Statement statement = null;
       Connection connection = null;
       try {
@@ -92,7 +92,7 @@ public class Bbdd {
          statement = connection.createStatement();
          statement.executeUpdate(sql);  
       } catch (Exception exception) {
-        throw new BbddException("Se ha producido un error realizando la consulta", exception);
+        throw new PersistenciaException("Se ha producido un error realizando la consulta", exception);
       } finally {
          closeConecction(connection, statement, null);
       }
@@ -103,9 +103,9 @@ public class Bbdd {
     * Funcion que realiza la consulta sobre la BBDD y la tabla Fruta
     * @param sql de la consulta
     * @return lista de resultados
-    * @throws BbddException controlado
+    * @throws PersistenciaException controlado
     */
-   private ArrayList<Fruta> obtenerListado(String sql) throws BbddException {
+   private ArrayList<Fruta> obtenerListado(String sql) throws PersistenciaException {
       ArrayList<Fruta> listaFrutas = new ArrayList<>();
 
       Fruta fruta = null;
@@ -125,7 +125,7 @@ public class Bbdd {
             listaFrutas.add(fruta);
          }
       } catch (Exception exception) {
-        throw new BbddException("Se ha producido un error realizando la consulta", exception);
+        throw new PersistenciaException("Se ha producido un error realizando la consulta", exception);
       } finally {
          closeConecction(connection, statement, resultSet);
       }
@@ -135,9 +135,9 @@ public class Bbdd {
    /**
     * Funcion que obtiene el listado de todas las frutas
     * @return lisa todal
-    * @throws BbddException controlado
+    * @throws PersistenciaException controlado
     */
-   public ArrayList<Fruta> obtenerListado() throws BbddException {
+   public ArrayList<Fruta> obtenerListado() throws PersistenciaException {
       String sql = "SELECT * FROM Fruta";
       return obtenerListado(sql);
    }
@@ -146,9 +146,9 @@ public class Bbdd {
     * Funcion que obtiene una fruta
     * @param
     * @return lisa todal
-    * @throws BbddException controlado
+    * @throws PersistenciaException controlado
     */
-   public Fruta obtenerFruta(String identificador) throws BbddException {
+   public Fruta obtenerFruta(String identificador) throws PersistenciaException {
       Fruta fruta = null;
       ArrayList<Fruta> listaFrutas = null;
       String sql = "SELECT * FROM Fruta where identificador = ";
@@ -162,7 +162,7 @@ public class Bbdd {
      
    }
 
-   private void closeConecction(Connection connection, Statement statement, ResultSet resultSet) throws BbddException  {
+   private void closeConecction(Connection connection, Statement statement, ResultSet resultSet) throws PersistenciaException  {
       try {
          if (resultSet != null) {
             resultSet.close();
@@ -174,7 +174,7 @@ public class Bbdd {
             connection.close();
          } 
       } catch (Exception exception) {
-         throw new BbddException("Se ha producido un error cerrando la coneccion", exception);
+         throw new PersistenciaException("Se ha producido un error cerrando la coneccion", exception);
       }
       
    }

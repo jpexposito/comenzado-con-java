@@ -1,35 +1,37 @@
 package es.ejemplos.jpexposito.modelo;
 
-import java.util.ArrayList;
-
 import es.ejemplos.jpexposito.api.Fruta;
-import es.ejemplos.jpexposito.excepcion.FicheroException;
-
+import es.ejemplos.jpexposito.excepcion.PersistenciaException;
 public class FrutaModelo {
 
-   Fichero fichero;
-   BerbyBbdd persistencia;
+   //BerbyBbdd persistencia;
+   MySqlBdDd persistencia;
 
    public FrutaModelo() {
-      persistencia = new BerbyBbdd("org.apache.derby.jdbc.EmbeddedDriver", "mem:derby.db", null, null);
-      fichero = new Fichero();
+      //persistencia = new BerbyBbdd("org.apache.derby.jdbc.EmbeddedDriver", "mem:derby.db", null, null);
+      persistencia = new MySqlBdDd("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/test"
+      , "minty", "greatsqldb");
+
    }
 
-   public void insertar(Fruta fruta) throws FicheroException {
-      fichero.insertar(fruta);
+   public void insertar(Fruta fruta) throws PersistenciaException {
+      persistencia.insertar(fruta);
    }
 
-   public void eliminar(Fruta fruta) throws FicheroException {
-      fichero.eliminar(fruta);
+   public void eliminar(Fruta fruta) throws PersistenciaException {
+      persistencia.eliminar(fruta);
    }
 
    /**
     * Funcion que busca una fruta a traves del identificar
     * @param identificador de la fruta
     * @return Fruta con el identificador especificado
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public Fruta buscar(String identificador) throws FicheroException {
+   public Fruta buscar(String identificador) throws PersistenciaException {
+
+     return persistencia.obtenerFruta(identificador);
+    /**
      Fruta fruta = null;
      ArrayList<Fruta> listado;
      listado = fichero.obtenerListado();
@@ -42,10 +44,11 @@ public class FrutaModelo {
      }
 
      return fruta;
+     **/
    }
 
-   public void modificar(Fruta frutaAlmacenada, Fruta fruta) throws FicheroException {
-      fichero.modificar(frutaAlmacenada, fruta);
+   public void modificar(Fruta fruta) throws PersistenciaException {
+      persistencia.modificar(fruta);
    }
    
 }

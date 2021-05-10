@@ -1,7 +1,7 @@
 package es.ejemplos.jpexposito.controlador;
 
 import es.ejemplos.jpexposito.api.Fruta;
-import es.ejemplos.jpexposito.excepcion.FicheroException;
+import es.ejemplos.jpexposito.excepcion.PersistenciaException;
 import es.ejemplos.jpexposito.excepcion.FrutaException;
 import es.ejemplos.jpexposito.modelo.FrutaModelo;
 
@@ -53,9 +53,9 @@ public class FrutaController {
     * Metodo encargado de insertar
     * @param fruta a insertar
     * @throws FrutaException con mensaje controlado
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public void insertar(Fruta fruta) throws FrutaException, FicheroException {
+   public void insertar(Fruta fruta) throws FrutaException, PersistenciaException {
       validarFruta(fruta);
       if (existe(fruta)) {
          throw new FrutaException("La fruta indicada ya existe");
@@ -67,9 +67,9 @@ public class FrutaController {
     * Metodo encargado de eliminar
     * @param fruta a eliminar
     * @throws FrutaException
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public void eliminar(Fruta fruta) throws FrutaException, FicheroException {
+   public void eliminar(Fruta fruta) throws FrutaException, PersistenciaException {
       validarFruta(fruta);
       if (!existe(fruta)) {
          throw new FrutaException(LA_FRUTA_INDICADA_NO_EXISTE);
@@ -81,9 +81,9 @@ public class FrutaController {
     * Meotod encargado de realiza la eliminacion de una fruta
     * @param identificador del elemento a eliminar
     * @throws FrutaException controlada con el error
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public void eliminar(String identificador) throws FrutaException, FicheroException {
+   public void eliminar(String identificador) throws FrutaException, PersistenciaException {
       Fruta fruta;
       fruta = buscar(identificador);
       eliminar(fruta);
@@ -93,9 +93,9 @@ public class FrutaController {
     * Metodo encargado de buscar por identificador
     * @param identificador para localizar la fruta
     * @return fruta a traves del identificador
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public Fruta buscar(String identificador) throws FicheroException {
+   public Fruta buscar(String identificador) throws PersistenciaException {
       Fruta fruta = null;
       fruta = frutaModelo.buscar(identificador);
       return fruta;
@@ -105,26 +105,24 @@ public class FrutaController {
     * Metodo encargado de realizar la modificacion de una fruta
     * @param fruta a modficar
     * @throws FrutaException controlada en caso de error
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public void modificar(Fruta fruta) throws FrutaException, FicheroException {
-      Fruta frutaAlmacenada;
+   public void modificar(Fruta fruta) throws FrutaException, PersistenciaException {
       
       validarFruta(fruta);
-      frutaAlmacenada = buscar(fruta.getIdentificador());
-      if (frutaAlmacenada == null) {
+      if (!existe(fruta)) {
          throw new FrutaException(LA_FRUTA_INDICADA_NO_EXISTE);
       }
-      frutaModelo.modificar(frutaAlmacenada, fruta);
+      frutaModelo.modificar(fruta);
    }
 
    /**
     * Funcion encargada de verificar si existe la fruta
     * @param fruta a encontrar
     * @return true/false
-    * @throws FicheroException error controlado
+    * @throws PersistenciaException error controlado
     */
-   private boolean existe(Fruta fruta) throws FicheroException {
+   private boolean existe(Fruta fruta) throws PersistenciaException {
      boolean encontrada = false;
      Fruta frutaEncontrada;
 

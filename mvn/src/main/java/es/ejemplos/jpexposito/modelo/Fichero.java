@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import es.ejemplos.jpexposito.api.Fruta;
-import es.ejemplos.jpexposito.excepcion.FicheroException;
+import es.ejemplos.jpexposito.excepcion.PersistenciaException;
 
 
 public class Fichero {
@@ -18,32 +18,32 @@ public class Fichero {
    /**
     * Metodo encargado de almacenar una fruta en el fichero
     * @param fruta a insertar
-    * @throws FicheroException controlado
+    * @throws PersistenciaException controlado
     */
-   public void insertar(Fruta fruta) throws FicheroException {
+   public void insertar(Fruta fruta) throws PersistenciaException {
       ArrayList<Fruta> listado;
       listado = obtenerListado();
       listado.add(fruta);
       try {
          crear(NOMBRE_FICHERO, listado.toString());
-      } catch (FicheroException exception) {
-        throw new FicheroException(SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO, exception);
+      } catch (PersistenciaException exception) {
+        throw new PersistenciaException(SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO, exception);
       }
    }
 
    /**
     * Metodo encargado de eliminar una fruta del fichero
     * @param fruta a eliminar 
-    * @throws FicheroException error controlado
+    * @throws PersistenciaException error controlado
     */
-   public void eliminar (Fruta fruta) throws FicheroException {
+   public void eliminar (Fruta fruta) throws PersistenciaException {
       ArrayList<Fruta> listado;
       listado = obtenerListado();
       listado.remove(fruta);
       try {
          crear(NOMBRE_FICHERO, listado.toString());
-      } catch (FicheroException exception) {
-        throw new FicheroException(SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO, exception);
+      } catch (PersistenciaException exception) {
+        throw new PersistenciaException(SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO, exception);
       }
    }
 
@@ -51,9 +51,9 @@ public class Fichero {
     * Metodo encargado de modificar un elemento del fichero
     * @param frutaAlamcenada elemento a actualizar
     * @param fruta elemento con la informacion actualizada
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public void modificar (Fruta frutaAlmacenada, Fruta fruta) throws FicheroException {
+   public void modificar (Fruta frutaAlmacenada, Fruta fruta) throws PersistenciaException {
       ArrayList<Fruta> listado = obtenerListado(); 
       int posicion = -1;
       posicion = listado.indexOf(frutaAlmacenada);
@@ -66,9 +66,9 @@ public class Fichero {
    /**
     * Funcion encargada de obtener el listado de frutas del fichero
     * @return listado de frutas
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public ArrayList<Fruta> obtenerListado() throws FicheroException {
+   public ArrayList<Fruta> obtenerListado() throws PersistenciaException {
       ArrayList<Fruta> lista = new ArrayList<>();
       File fichero = null;
       Scanner scanner = null;
@@ -76,7 +76,7 @@ public class Fichero {
       try {
          fichero = new File(NOMBRE_FICHERO);
          if (!validarFichero(fichero)) {
-            throw new FicheroException("El fichero a leer no existe");
+            throw new PersistenciaException("El fichero a leer no existe");
          }
          scanner = new Scanner(fichero);
          while (scanner.hasNextLine()) {
@@ -86,10 +86,10 @@ public class Fichero {
                lista.add(fruta);
             }
          }
-      } catch (FicheroException e) {  
+      } catch (PersistenciaException e) {  
             throw e;
       }catch (Exception e) {
-            throw new FicheroException("Se ha producido un error en la lectura del fichero", e);
+            throw new PersistenciaException("Se ha producido un error en la lectura del fichero", e);
       } finally {
          if (scanner != null) {
             scanner.close();
@@ -104,9 +104,9 @@ public class Fichero {
     * Funcion encargada de leer un ficher
     * 
     * @param nombre nombre del fichero a leer
-    * @throws FicheroException Error controlado en la lectura del fichero
+    * @throws PersistenciaException Error controlado en la lectura del fichero
     */
-   public String leer(String nombre) throws FicheroException {
+   public String leer(String nombre) throws PersistenciaException {
       StringBuilder informacion = null;
       File fichero = null;
       Scanner scanner = null;
@@ -114,7 +114,7 @@ public class Fichero {
       try {
          fichero = new File(nombre);
          if (!validarFichero(fichero)) {
-            throw new FicheroException("El fichero a leer no existe");
+            throw new PersistenciaException("El fichero a leer no existe");
          }
          informacion = new StringBuilder();
          scanner = new Scanner(fichero);
@@ -123,10 +123,10 @@ public class Fichero {
             String linea = scanner.nextLine(); // Guardamos la linea en un String
             informacion.append(linea + RETORNO_CARRO);
          }
-      } catch (FicheroException e) {  
+      } catch (PersistenciaException e) {  
             throw e;
       }catch (Exception e) {
-            throw new FicheroException("Se ha producido un error en la lectura del fichero", e);
+            throw new PersistenciaException("Se ha producido un error en la lectura del fichero", e);
       } finally {
          if (scanner != null) {
             scanner.close();
@@ -138,21 +138,21 @@ public class Fichero {
    /**
     * Metodo encargado de crear un fichero
     * @param nombre del fichero a crear
-    * @throws FicheroException
+    * @throws PersistenciaException
     */
-   public void crear(String nombre, String cadenaTexto) throws FicheroException {
+   public void crear(String nombre, String cadenaTexto) throws PersistenciaException {
       FileWriter fichero = null;
       try {
 			fichero = new FileWriter(nombre);
          fichero.write(cadenaTexto + "\n");
 		} catch (Exception ex) {
-			throw new FicheroException("Se ha producido un error en la escritura del fichero", ex);
+			throw new PersistenciaException("Se ha producido un error en la escritura del fichero", ex);
 		} finally {
          if (fichero != null) {
             try {
                fichero.close();
             } catch (IOException e) {
-               throw new FicheroException("No ha sido podible cerrar el fichero", e);
+               throw new PersistenciaException("No ha sido podible cerrar el fichero", e);
             }
          }
       }
@@ -171,14 +171,14 @@ public class Fichero {
    /**
     * Metodo encargado de elimianr un fichero/directorio
     * @param nombre del fichero/directorio a elimina
-    * @throws FicheroException error controlado
+    * @throws PersistenciaException error controlado
     */
-   public void eliminar(String nombre) throws FicheroException {
+   public void eliminar(String nombre) throws PersistenciaException {
       File fichero = new File(nombre);
       if (validarFichero(fichero)) {
          fichero.delete();
       } else {
-         throw new FicheroException("No se puede eliminar un fichero que no existe");
+         throw new PersistenciaException("No se puede eliminar un fichero que no existe");
       }
       
    }
