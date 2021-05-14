@@ -4,21 +4,18 @@ import es.ejemplos.jpexposito.api.Usuario;
 import es.ejemplos.jpexposito.exceptions.PersistenciaException;
 
 public class UsuarioModelo {
-   //Fichero persistencia;
+
    DerbyBddd persistencia;
    MySqlDbdd persistenciaMySql;
-   Fichero persistenciaFichero;
 
    /**
     * Constructor por defecto 
     */
    public UsuarioModelo() {
-      persistencia = new DerbyBddd("org.apache.derby.jdbc.EmbeddedDriver", "derbi.db",null,null);
-      persistenciaMySql = new MySqlDbdd("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/test", "usuario", "password");
-      persistenciaFichero = new Fichero();
+      persistencia = new DerbyBddd("miBbDdEmbebida.db",null,null);
+      //persistenciaMySql = new MySqlDbdd("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/test", "usuario", "password");
    }
    
-
    /**
     * Metodo encargado de realizar la insercion de un usuario
     * @param usuario a insertar
@@ -27,7 +24,7 @@ public class UsuarioModelo {
     */
    public void insertar(Usuario usuario) throws  PersistenciaException {
       persistencia.insertar(usuario);
-      persistenciaFichero.insertar(usuario);
+      //persistenciaMySql.insertar(usuario);
    }
 
    /**

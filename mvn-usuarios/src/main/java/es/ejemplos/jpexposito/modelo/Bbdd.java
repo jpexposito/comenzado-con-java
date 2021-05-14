@@ -1,6 +1,7 @@
 package es.ejemplos.jpexposito.modelo;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +11,10 @@ import java.util.ArrayList;
 import es.ejemplos.jpexposito.api.Usuario;
 import es.ejemplos.jpexposito.exceptions.PersistenciaException;
 
-public class Bbdd {
+public abstract class Bbdd {
+
+   private static final String TABLE = "TABLE";
+   private static final String TABLE_USUARIOS= "USUARIOS";
 
    protected String driver;
    protected String urlConexion;
@@ -23,6 +27,34 @@ public class Bbdd {
       this.urlConexion = urlConexion;
       this.usuario = usuario;
       this.password = password;
+   }
+
+   private void crearTablas() {
+      DatabaseMetaData databaseMetaData;
+      Connection connection = null;
+      ResultSet resultSet = null;
+      ArrayList<String> listaTablas = new ArrayList<>();
+      try {
+         connection = getConnection();
+         databaseMetaData = connection.getMetaData();
+         resultSet = databaseMetaData.getTables(null, null, null, new String[] {TABLE});
+         while (resultSet.next()) {
+            listaTablas.add(resultSet.getString("TABLE_NAME"));
+        }
+        if (!listaTablas.contains(TABLE_USUARIOS)) {
+           //Crear tabla usuario
+           String sqlCrearTabla = null;
+           update(sqlCrearTabla);
+           //Extraer de fichero las sentencias sql para insertar en la BBDD
+           String sqlInsertarDatos = null;
+           update(sqlInsertarDatos);
+           //Insertar datos
+        }
+
+      } catch (Exception e) {
+         //TODO: handle exception
+      }
+
    }
 
    /**
@@ -39,7 +71,6 @@ public class Bbdd {
             } else {
                connection = DriverManager.getConnection(urlConexion);
             }
-            connection = DriverManager.getConnection(urlConexion, usuario, password);
          } catch (ClassNotFoundException | SQLException exception) {
             throw new PersistenciaException("No se ha podido estabalecer la conexion", exception);
          }

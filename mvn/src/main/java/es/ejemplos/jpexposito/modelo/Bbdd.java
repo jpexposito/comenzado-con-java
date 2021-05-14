@@ -13,12 +13,57 @@ public class Bbdd {
    private String usuario;
    private String password;
 
+   ArrayList<String> listaTablas;
 
-   public Bbdd(String driver, String url, String usuario, String password) {
+
+   public Bbdd(String driver, String url, String usuario, String password) throws PersistenciaException {
       this.driver = driver;
       this.url = url;
       this.usuario = usuario;
       this.password = password;
+      init();
+   }
+
+   private void init() throws PersistenciaException {
+      Connection connection = null;
+      for (String nombreTabla : listaTablas) {
+         boolean existe = existeTabla(nombreTabla);
+         if (!existe) {
+            //Obtenemos la sentencia sql del fichero
+            String crearTabla = "Create table if not exist fruta (identificador INT PRIMARY KEY,nombre VARCHAR(30),precio float(3,2), coste float(3,2));";
+            actualizar(crearTabla);
+            //Para cada uno de los insert de nombreTabla
+            String insertElemento = "";
+            actualizar(insertElemento);
+
+         }
+      }
+
+   } 
+
+   /**
+    * Funcion encargada de verificar si una tabla existe
+    * @param nombreTabla a verificar
+    * @return true/false
+    * @throws PersistenciaException
+    */
+   private boolean existeTabla(String nombreTabla) throws PersistenciaException {
+      Connection connection = null;
+      boolean existe = false;
+      ResultSet resultSet  = null;
+
+      try {
+         connection = getConnection();
+         DatabaseMetaData meta = connection.getMetaData();
+         resultSet = meta.getTables(null, null, nombreTabla, new String[] {"TABLE"});
+         existe = resultSet.next();
+      } catch (Exception e) {
+         //TODO: handle exception
+      } finally {
+         closeConecction(connection, null, resultSet);
+      }
+      return existe;
+
    }
 
    /**

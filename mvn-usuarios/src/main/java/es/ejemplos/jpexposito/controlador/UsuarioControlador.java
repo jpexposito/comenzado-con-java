@@ -2,7 +2,6 @@ package es.ejemplos.jpexposito.controlador;
 
 import es.ejemplos.jpexposito.api.Usuario;
 import es.ejemplos.jpexposito.exceptions.PersistenciaException;
-import es.ejemplos.jpexposito.exceptions.FicheroException;
 import es.ejemplos.jpexposito.exceptions.UsuarioException;
 import es.ejemplos.jpexposito.modelo.UsuarioModelo;
 
