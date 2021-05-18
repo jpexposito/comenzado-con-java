@@ -8,5 +8,6 @@ Tabla cuenta:
  * cliente: String (varchar 9).
  * email: String (varchar 50).
  * saldo: double.
+
 La aplicación tiene que ser capaz de realizar las tareas de alta, baja, modificación y consulta de los datos de las cuentas. Las consultas se podrán hacer tanto por código de la cuenta como por el identificador del cliente. Recuerda seguir la arquitectura mvc.
 
