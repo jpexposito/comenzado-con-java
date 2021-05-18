@@ -6,7 +6,26 @@ public class Cuenta {
    String email;
    double saldo;
 
+   /** 
+    * Constructor por defecto
+    */
    public Cuenta () {}
+
+   /**
+    * Constructor con parametros
+    * @param codigo de la cuenta
+    * @param cliente de la cuenta
+    * @param email del cliente
+    * @param saldo actual de la cuenta
+    */
+   public Cuenta(String codigo, String cliente, String email, double saldo) {
+      this.codigo = codigo;
+      this.cliente = cliente;
+      this.email = email;
+      this.saldo = saldo;
+   }
+
+
 
 
    public String getCodigo() {

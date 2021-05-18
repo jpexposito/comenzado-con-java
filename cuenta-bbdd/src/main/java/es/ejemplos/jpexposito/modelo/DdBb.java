@@ -47,7 +47,7 @@ public abstract class DdBb {
            //Crear tabla cuenta
            String sqlCrearTabla = "CREATE TABLE IF NOT EXISTS CUENTA ("
             + " codigo VARCHAR(50) PRIMARY KEY,"
-            + "cliente VARCHAR(50) NOT NULL,"
+            + "cliente VARCHAR(9) NOT NULL,"
             + "email VARCHAR(50) NOT NULL,"
             + "saldo DOUBLE NOT NULL);";
            update(sqlCrearTabla);
@@ -120,13 +120,13 @@ public abstract class DdBb {
     */
    private ArrayList<Cuenta> buscar(String sql) throws PersistenciaException {
       ArrayList<Cuenta> lista = new ArrayList<>();
-      Statement statement = null;
+      PreparedStatement statement = null;
       ResultSet resultSet = null;
 
       try {
          connection = getConnection();
          statement = connection.prepareStatement(sql);
-         resultSet = statement.executeQuery(sql);
+         resultSet = statement.executeQuery();
 
          while(resultSet.next()) {
             Cuenta cuenta = new Cuenta();
@@ -154,7 +154,7 @@ public abstract class DdBb {
    public void insertar(Cuenta cuenta) throws PersistenciaException {
       String sql = "INSERT INTO cuenta (codigo, cliente, email, saldo)"+
       " VALUES ('"+cuenta.getCodigo()+"','"+cuenta.getCliente()+"','"
-      +cuenta.getEmail()+"','"+cuenta.getSaldo()+"')";
+      +cuenta.getEmail()+"',"+cuenta.getSaldo()+");";
       update(sql);
    }
 
