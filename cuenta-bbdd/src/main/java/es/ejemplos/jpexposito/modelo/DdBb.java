@@ -21,7 +21,6 @@ public abstract class DdBb {
    protected String urlConexion;
    protected String usuario;
    protected String password;
-   private Connection connection;
 
    public DdBb(String driver, String urlConexion, String usuario, String password) throws PersistenciaException {
       this.driver = driver;
@@ -71,18 +70,19 @@ public abstract class DdBb {
     * @throws PersistenciaException
     */
    public Connection getConnection() throws PersistenciaException {
-      if (connection == null) {
-         try {
-            Class.forName(driver);
-            if (usuario != null && password != null) {
-               connection = DriverManager.getConnection(urlConexion, usuario, password);
-            } else {
-               connection = DriverManager.getConnection(urlConexion);
-            }
-         } catch (ClassNotFoundException | SQLException exception) {
-            throw new PersistenciaException("No se ha podido estabalecer la conexion", exception);
+      Connection connection = null;
+
+      try {
+         Class.forName(driver);
+         if (usuario != null && password != null) {
+            connection = DriverManager.getConnection(urlConexion, usuario, password);
+         } else {
+            connection = DriverManager.getConnection(urlConexion);
          }
+      } catch (ClassNotFoundException | SQLException exception) {
+         throw new PersistenciaException("No se ha podido estabalecer la conexion", exception);
       }
+      
       return connection;
    }
 
@@ -122,7 +122,7 @@ public abstract class DdBb {
       ArrayList<Cuenta> lista = new ArrayList<>();
       PreparedStatement statement = null;
       ResultSet resultSet = null;
-
+      Connection connection = null;
       try {
          connection = getConnection();
          statement = connection.prepareStatement(sql);
@@ -186,6 +186,7 @@ public abstract class DdBb {
     */
    public void update(String sql) throws PersistenciaException {
       PreparedStatement statement = null;
+      Connection connection = null;
       try {
          connection= getConnection();
          statement = connection.prepareStatement(sql);
