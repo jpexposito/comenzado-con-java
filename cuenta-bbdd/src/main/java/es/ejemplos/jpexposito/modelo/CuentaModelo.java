@@ -1,9 +1,13 @@
 package es.ejemplos.jpexposito.modelo;
 
-public class CuentaModelo {
+import es.ejemplos.jpexposito.exception.PersistenciaException;
+
+public class CuentaModelo{
 
    DdBbSqLite ddBbSqLite;
-   public CuentaModelo() {
+   
+   public CuentaModelo() throws PersistenciaException {
+      ddBbSqLite = new DdBbSqLite(null, null);
       
    }
 

@@ -3,6 +3,7 @@ package es.ejemplos.jpexposito.modelo;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,17 +44,23 @@ public abstract class DdBb {
             listaTablas.add(resultSet.getString("TABLE_NAME"));
         }
         if (!listaTablas.contains(TABLE_NAME)) {
-           //Crear tabla usuario
-           String sqlCrearTabla = null;
+           //Crear tabla cuenta
+           String sqlCrearTabla = "CREATE TABLE IF NOT EXISTS CUENTA ("
+            + " codigo VARCHAR(50) PRIMARY KEY,"
+            + "cliente VARCHAR(50) NOT NULL,"
+            + "email VARCHAR(50) NOT NULL,"
+            + "saldo DOUBLE NOT NULL);";
            update(sqlCrearTabla);
            //Extraer de fichero las sentencias sql para insertar en la BBDD
-           String sqlInsertarDatos = null;
-           update(sqlInsertarDatos);
+           //String sqlInsertarDatos = null;
+           //update(sqlInsertarDatos);
            //Insertar datos
         }
 
       } catch (Exception e) {
          throw new PersistenciaException("Se ha producido un error en la inicializacion de la BBDD", e);
+      } finally {
+         closeConecction(connection, null, resultSet);
       }
 
    }
@@ -80,10 +87,10 @@ public abstract class DdBb {
    }
 
    /**
-    * Funcion encargada de obtener un usuario
+    * Funcion encargada de obtener un cuenta
     * 
-    * @param identificador del usuario
-    * @return Objeto usuario
+    * @param identificador del cuenta
+    * @return Objeto cuenta
     * @throws PersistenciaException
     */
    public Cuenta buscarCuenta(String identificador) throws PersistenciaException {
@@ -101,8 +108,8 @@ public abstract class DdBb {
     * @return lista usuarios
     * @throws PersistenciaException error controlado
     */
-    public ArrayList<Usuario> buscarTodos() throws PersistenciaException {
-      String sql = "SELECT * FROM usuario ";
+    public ArrayList<Cuenta> buscarTodos() throws PersistenciaException {
+      String sql = "SELECT * FROM " + TABLE_NAME;
       return buscar(sql);
    }
    /**
@@ -178,11 +185,11 @@ public abstract class DdBb {
     * @throws PersistenciaException error controlado
     */
    public void update(String sql) throws PersistenciaException {
-      Statement statement = null;
+      PreparedStatement statement = null;
       try {
          connection= getConnection();
          statement = connection.prepareStatement(sql);
-         statement.executeUpdate(sql);
+         statement.executeUpdate();
       } catch (SQLException exception) {
          throw new PersistenciaException("Se ha producido un error en la busqueda", exception);
       } finally {
