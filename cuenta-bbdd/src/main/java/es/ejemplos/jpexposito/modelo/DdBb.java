@@ -95,7 +95,7 @@ public abstract class DdBb {
     */
    public Cuenta buscarCuenta(String identificador) throws PersistenciaException {
       Cuenta cuenta = null;
-      String sql = "SELECT * FROM "+TABLE_NAME+" WHERE identificador='"+identificador+"'";
+      String sql = "SELECT * FROM "+TABLE_NAME+" WHERE codigo='"+identificador+"'";
       ArrayList<Cuenta> lista = buscar(sql);
       if (!lista.isEmpty()) {
          cuenta = lista.get(0);
@@ -130,7 +130,7 @@ public abstract class DdBb {
 
          while(resultSet.next()) {
             Cuenta cuenta = new Cuenta();
-            cuenta.setCodigo(resultSet.getString("dodigo"));
+            cuenta.setCodigo(resultSet.getString("codigo"));
             cuenta.setCliente(resultSet.getString("cliente"));
             cuenta.setEmail(resultSet.getString("email"));
             cuenta.setSaldo(resultSet.getDouble("saldo"));

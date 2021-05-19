@@ -1,5 +1,7 @@
 package es.ejemplos.jpexposito.api;
 
+import java.util.Objects;
+
 public class Cuenta {
    String codigo;
    String cliente;
@@ -25,6 +27,22 @@ public class Cuenta {
       this.saldo = saldo;
    }
 
+
+   @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Cuenta)) {
+            return false;
+        }
+        Cuenta cuenta = (Cuenta) o;
+        return Objects.equals(codigo, cuenta.codigo) && Objects.equals(cliente, cuenta.cliente) && Objects.equals(email, cuenta.email) && saldo == cuenta.saldo;
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(codigo, cliente, email, saldo);
+   }
 
 
 

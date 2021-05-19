@@ -1,5 +1,7 @@
 package es.ejemplos.jpexposito;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -51,7 +53,13 @@ public class ModeloCuentaDdBbTest {
     }
 
     @Test
-    public void shouldAnswerWithTrue(){
-        assertTrue( true );
+    public void buscarCuentaTest(){
+        try {
+            Cuenta cuentaEncontrada = cuentaModelo.buscar(cuenta.getCodigo());
+            assertNotNull(cuentaEncontrada, "No se debe de obtener un elemento nulo");
+            assertEquals(cuenta, cuentaEncontrada, "No se ha encontrado lo esperado");
+        } catch (PersistenciaException e) {
+           fail("Se ha producido un error en la consulta del la cuenta,e:"+e.getMessage());
+        }
     }
 }

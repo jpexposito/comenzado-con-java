@@ -20,6 +20,10 @@ public class CuentaModelo{
       persistencia.eliminar(cuenta.getCodigo());
    }
 
+   public Cuenta buscar(String codigo) throws PersistenciaException {
+      return persistencia.buscarCuenta(codigo);
+   }
+
 
    
 }
