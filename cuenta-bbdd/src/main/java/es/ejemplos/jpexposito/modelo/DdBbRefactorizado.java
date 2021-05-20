@@ -12,25 +12,30 @@ import java.util.ArrayList;
 import es.ejemplos.jpexposito.api.Cuenta;
 import es.ejemplos.jpexposito.exception.PersistenciaException;
 
-public abstract class DdBb {
+public abstract class DdBbRefactorizado {
 
    private static final String TABLE = "TABLE";
-   private static final String TABLE_NAME= "CUENTA";
+   private static final String TABLE_NAME= "TABLE_NAME";
 
+   protected String nombreTabla;
+   protected String clave;
    protected String driver;
    protected String urlConexion;
    protected String usuario;
    protected String password;
 
-   public DdBb(String driver, String urlConexion, String usuario, String password) throws PersistenciaException {
+   public DdBbRefactorizado(String nombreTabla, String clave, String driver, String urlConexion, String usuario, String password) throws PersistenciaException {
+      this.nombreTabla = nombreTabla;
+      this.clave = clave;
       this.driver = driver;
       this.urlConexion = urlConexion;
       this.usuario = usuario;
       this.password = password;
-      inicializarDdBd();
+      inicializarTabla(nombreTabla);
    }
 
-   private void inicializarDdBd() throws PersistenciaException {
+
+   private void inicializarTabla(String tabla) throws PersistenciaException {
       DatabaseMetaData databaseMetaData;
       Connection connection = null;
       ResultSet resultSet = null;
@@ -42,7 +47,7 @@ public abstract class DdBb {
          while (resultSet.next()) {
             listaTablas.add(resultSet.getString("TABLE_NAME"));
         }
-        if (!listaTablas.contains(TABLE_NAME)) {
+        if (!listaTablas.contains(tabla)) {
            //Crear tabla cuenta
            String sqlCrearTabla = "CREATE TABLE IF NOT EXISTS CUENTA ("
             + " codigo VARCHAR(50) PRIMARY KEY,"
@@ -93,14 +98,14 @@ public abstract class DdBb {
     * @return Objeto cuenta
     * @throws PersistenciaException
     */
-   public Cuenta buscarCuenta(String identificador) throws PersistenciaException {
-      Cuenta cuenta = null;
-      String sql = "SELECT * FROM "+TABLE_NAME+" WHERE codigo='"+identificador+"'";
-      ArrayList<Cuenta> lista = buscar(sql);
+   public Object buscarElemento(String identificador) throws PersistenciaException {
+      Object elemento = null;
+      String sql = "SELECT * FROM "+this.nombreTabla+" WHERE "+this.clave+"='"+identificador+"'";
+      ArrayList<Object> lista = buscar(sql);
       if (!lista.isEmpty()) {
-         cuenta = lista.get(0);
+         elemento = lista.get(0);
       }
-      return cuenta;
+      return elemento;
    }
 
    /**
@@ -108,8 +113,8 @@ public abstract class DdBb {
     * @return lista usuarios
     * @throws PersistenciaException error controlado
     */
-    public ArrayList<Cuenta> buscarTodos() throws PersistenciaException {
-      String sql = "SELECT * FROM " + TABLE_NAME;
+    public ArrayList<Object> buscarTodos() throws PersistenciaException {
+      String sql = "SELECT * FROM " + this.nombreTabla;
       return buscar(sql);
    }
    /**
@@ -118,8 +123,8 @@ public abstract class DdBb {
     * @return lista resultados (0..n) Usuasios
     * @throws PersistenciaException error controlado
     */
-   private ArrayList<Cuenta> buscar(String sql) throws PersistenciaException {
-      ArrayList<Cuenta> lista = new ArrayList<>();
+   private ArrayList<Object> buscar(String sql) throws PersistenciaException {
+      ArrayList<Object> lista = new ArrayList<>();
       PreparedStatement statement = null;
       ResultSet resultSet = null;
       Connection connection = null;
@@ -142,41 +147,6 @@ public abstract class DdBb {
          closeConecction(connection, statement, resultSet);
       }
       return lista;
-   }
-
-
-   /**
-    * Metodo encargado de realizar la insercion en la BBDD
-    * 
-    * @param usuario a insertar
-    * @throws PersistenciaException
-    */
-   public void insertar(Cuenta cuenta) throws PersistenciaException {
-      String sql = "INSERT INTO cuenta (codigo, cliente, email, saldo)"+
-      " VALUES ('"+cuenta.getCodigo()+"','"+cuenta.getCliente()+"','"
-      +cuenta.getEmail()+"',"+cuenta.getSaldo()+");";
-      update(sql);
-   }
-
-   /**
-    * Metodo encargado de realizar la actualizacion de un cuenta
-    * @param cuenta a actualizar
-    * @throws PersistenciaException error controlado
-    */
-   public void update(Cuenta cuenta) throws PersistenciaException {
-      String sql = "UPDATE cuenta set cliente = '" + cuenta.getCliente() + "',  email = '" + cuenta.getEmail()
-            + "',  saldo = '" + cuenta.getSaldo() +"' " + " WHERE codigo = '" + cuenta.getCodigo()+"'";
-      update(sql);
-   }
-   /**
-    * Metodo encargado de realizar la actualizacion en la BBDD
-    * 
-    * @param cuenta a actualizar
-    * @throws PersistenciaException
-    */
-   public void eliminar(String identificador) throws PersistenciaException {
-      String sql = "DELETE FROM cuenta WHERE codigo = '" + identificador + "'";
-      update(sql);
    }
 
    /**

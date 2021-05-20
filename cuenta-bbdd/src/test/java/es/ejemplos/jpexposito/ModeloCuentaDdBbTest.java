@@ -62,4 +62,18 @@ public class ModeloCuentaDdBbTest {
            fail("Se ha producido un error en la consulta del la cuenta,e:"+e.getMessage());
         }
     }
+
+    @Test
+    public void actualizarCuentaTest(){
+        try {
+            Cuenta cuentaEncontrada = cuentaModelo.buscar(cuenta.getCodigo());
+            assertNotNull(cuentaEncontrada, "No se debe de obtener un elemento nulo");
+            cuentaEncontrada.setCliente("Pepe");
+            cuentaModelo.actualizar(cuentaEncontrada);
+            Cuenta cuentaActualziada = cuentaModelo.buscar(cuentaEncontrada.getCodigo());
+            assertEquals(cuentaActualziada, cuentaEncontrada, "No se ha encontrado lo esperado");
+        } catch (PersistenciaException e) {
+           fail("Se ha producido un error en la consulta del la cuenta,e:"+e.getMessage());
+        }
+    }
 }
