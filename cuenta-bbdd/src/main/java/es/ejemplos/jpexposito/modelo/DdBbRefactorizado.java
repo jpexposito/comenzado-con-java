@@ -98,6 +98,7 @@ public abstract class DdBbRefactorizado {
     * @return Objeto cuenta
     * @throws PersistenciaException
     */
+    /**
    public Object buscarElemento(String identificador) throws PersistenciaException {
       Object elemento = null;
       String sql = "SELECT * FROM "+this.nombreTabla+" WHERE "+this.clave+"='"+identificador+"'";
@@ -107,22 +108,25 @@ public abstract class DdBbRefactorizado {
       }
       return elemento;
    }
+   **/
 
    /**
     * Funcion que obtiene todos los usuarios de la BBDD
     * @return lista usuarios
     * @throws PersistenciaException error controlado
-    */
+    
     public ArrayList<Object> buscarTodos() throws PersistenciaException {
       String sql = "SELECT * FROM " + this.nombreTabla;
       return buscar(sql);
    }
+   **/
    /**
     * Funcion que realiza una consulta sobre una sentencia sql dada
     * @param sql de la consulta
     * @return lista resultados (0..n) Usuasios
     * @throws PersistenciaException error controlado
     */
+    /**
    private ArrayList<Object> buscar(String sql) throws PersistenciaException {
       ArrayList<Object> lista = new ArrayList<>();
       PreparedStatement statement = null;
@@ -148,6 +152,31 @@ public abstract class DdBbRefactorizado {
       }
       return lista;
    }
+**/
+
+   /**
+    * Funcion que realiza una consulta sobre una sentencia sql dada
+    * @param sql de la consulta
+    * @return lista resultados (0..n) Usuasios
+    * @throws PersistenciaException error controlado
+    */
+    protected ResultSet buscarElementos(String sql) throws PersistenciaException {
+      
+      PreparedStatement statement = null;
+      ResultSet resultSet = null;
+      Connection connection = null;
+      try {
+         connection = getConnection();
+         statement = connection.prepareStatement(sql);
+         resultSet = statement.executeQuery();
+      } catch (SQLException exception) {
+         throw new PersistenciaException("Se ha producido un error en la busqueda", exception);
+      } finally {
+         //closeConecction(connection, statement, null);
+      }
+      return resultSet;
+   }
+
 
    /**
     * Metodo encargado de realizar las inserciones/modificaciones/eliminacion de la BBDD
@@ -176,7 +205,7 @@ public abstract class DdBbRefactorizado {
     * @param resultSet  resultado
     * @throws PersistenciaException error controlado
     */
-   private void closeConecction(Connection connection, Statement statement, ResultSet resultSet) throws PersistenciaException {
+   public void closeConecction(Connection connection, Statement statement, ResultSet resultSet) throws PersistenciaException {
       try {
          if (resultSet != null) {
             resultSet.close();
