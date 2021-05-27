@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import es.ejemplos.jpexposito.api.Cuenta;
 import es.ejemplos.jpexposito.exception.PersistenciaException;
 
@@ -12,10 +13,18 @@ public class CuentaModelo{
    DdBbSqLite persistencia;
    private static final String TABLA  = "CUENTA";
    private static final String CLAVE  = "CODIGO";
+   private static final String SQLCREATETABLE = "CREATE TABLE IF NOT EXISTS "+TABLA+" ("
+   + " "+CLAVE+" VARCHAR(50) PRIMARY KEY,"
+   + "idCodigo VARCHAR(50) NOT NULL,"
+   + "nombre VARCHAR(9) NOT NULL,"
+   + "apellidos VARCHAR(50) NOT NULL,"
+   + "email VARCHAR(50) NOT NULL);";
+
+   
 
    
    public CuentaModelo() throws PersistenciaException {
-      persistencia = new DdBbSqLite(TABLA, CLAVE, null, null);
+      persistencia = new DdBbSqLite(TABLA, CLAVE, null, null,SQLCREATETABLE);
       
    }
 
@@ -40,6 +49,7 @@ public class CuentaModelo{
       String sql = "DELETE FROM "+TABLA+" WHERE "+CLAVE+" = '" + cuenta.getCodigo() + "'";
       persistencia.update(sql);
    }
+
 
 
    /**
@@ -68,6 +78,12 @@ public class CuentaModelo{
       return cuentaEncotrada;
    }
 
+   /**
+    * Funcion encargada de transformar un ResultSet en una lista de resultados
+    * @param resultSet de entrada
+    * @return lista de Cuentas
+    * @throws PersistenciaException error controlado
+    */
    private ArrayList<Cuenta> buscar(ResultSet resultSet) throws PersistenciaException {
       ArrayList<Cuenta> lista = new ArrayList<>();
       try {

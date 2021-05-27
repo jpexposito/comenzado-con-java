@@ -24,18 +24,18 @@ public abstract class DdBbRefactorizado {
    protected String usuario;
    protected String password;
 
-   public DdBbRefactorizado(String nombreTabla, String clave, String driver, String urlConexion, String usuario, String password) throws PersistenciaException {
+   public DdBbRefactorizado(String nombreTabla, String clave, String driver, String urlConexion, String usuario, String password, String sqlCreate) throws PersistenciaException {
       this.nombreTabla = nombreTabla;
       this.clave = clave;
       this.driver = driver;
       this.urlConexion = urlConexion;
       this.usuario = usuario;
       this.password = password;
-      inicializarTabla(nombreTabla);
+      inicializarTabla(nombreTabla, sqlCreate);
    }
 
 
-   private void inicializarTabla(String tabla) throws PersistenciaException {
+   private void inicializarTabla(String tabla, String sqlCreate) throws PersistenciaException {
       DatabaseMetaData databaseMetaData;
       Connection connection = null;
       ResultSet resultSet = null;
@@ -48,17 +48,7 @@ public abstract class DdBbRefactorizado {
             listaTablas.add(resultSet.getString("TABLE_NAME"));
         }
         if (!listaTablas.contains(tabla)) {
-           //Crear tabla cuenta
-           String sqlCrearTabla = "CREATE TABLE IF NOT EXISTS CUENTA ("
-            + " codigo VARCHAR(50) PRIMARY KEY,"
-            + "cliente VARCHAR(9) NOT NULL,"
-            + "email VARCHAR(50) NOT NULL,"
-            + "saldo DOUBLE NOT NULL);";
-           update(sqlCrearTabla);
-           //Extraer de fichero las sentencias sql para insertar en la BBDD
-           //String sqlInsertarDatos = null;
-           //update(sqlInsertarDatos);
-           //Insertar datos
+           update(sqlCreate);
         }
 
       } catch (Exception e) {
@@ -92,69 +82,6 @@ public abstract class DdBbRefactorizado {
    }
 
    /**
-    * Funcion encargada de obtener un cuenta
-    * 
-    * @param identificador del cuenta
-    * @return Objeto cuenta
-    * @throws PersistenciaException
-    */
-    /**
-   public Object buscarElemento(String identificador) throws PersistenciaException {
-      Object elemento = null;
-      String sql = "SELECT * FROM "+this.nombreTabla+" WHERE "+this.clave+"='"+identificador+"'";
-      ArrayList<Object> lista = buscar(sql);
-      if (!lista.isEmpty()) {
-         elemento = lista.get(0);
-      }
-      return elemento;
-   }
-   **/
-
-   /**
-    * Funcion que obtiene todos los usuarios de la BBDD
-    * @return lista usuarios
-    * @throws PersistenciaException error controlado
-    
-    public ArrayList<Object> buscarTodos() throws PersistenciaException {
-      String sql = "SELECT * FROM " + this.nombreTabla;
-      return buscar(sql);
-   }
-   **/
-   /**
-    * Funcion que realiza una consulta sobre una sentencia sql dada
-    * @param sql de la consulta
-    * @return lista resultados (0..n) Usuasios
-    * @throws PersistenciaException error controlado
-    */
-    /**
-   private ArrayList<Object> buscar(String sql) throws PersistenciaException {
-      ArrayList<Object> lista = new ArrayList<>();
-      PreparedStatement statement = null;
-      ResultSet resultSet = null;
-      Connection connection = null;
-      try {
-         connection = getConnection();
-         statement = connection.prepareStatement(sql);
-         resultSet = statement.executeQuery();
-
-         while(resultSet.next()) {
-            Cuenta cuenta = new Cuenta();
-            cuenta.setCodigo(resultSet.getString("codigo"));
-            cuenta.setCliente(resultSet.getString("cliente"));
-            cuenta.setEmail(resultSet.getString("email"));
-            cuenta.setSaldo(resultSet.getDouble("saldo"));
-            lista.add(cuenta);
-         }
-      } catch (SQLException exception) {
-         throw new PersistenciaException("Se ha producido un error en la busqueda", exception);
-      } finally {
-         closeConecction(connection, statement, resultSet);
-      }
-      return lista;
-   }
-**/
-
-   /**
     * Funcion que realiza una consulta sobre una sentencia sql dada
     * @param sql de la consulta
     * @return lista resultados (0..n) Usuasios
@@ -172,7 +99,6 @@ public abstract class DdBbRefactorizado {
       } catch (SQLException exception) {
          throw new PersistenciaException("Se ha producido un error en la busqueda", exception);
       } finally {
-         //closeConecction(connection, statement, null);
       }
       return resultSet;
    }
