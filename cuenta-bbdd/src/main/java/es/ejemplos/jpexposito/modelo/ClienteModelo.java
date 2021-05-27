@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import es.ejemplos.jpexposito.api.Cliente;
-import es.ejemplos.jpexposito.api.Cuenta;
 import es.ejemplos.jpexposito.exception.PersistenciaException;
 
 public class ClienteModelo{
@@ -74,7 +73,6 @@ public class ClienteModelo{
       }
       return clienteEncontrado;
    }
-
    /**
     * Funcion encargada de transformar un ResultSet en una lista de resultados
     * @param resultSet de entrada
