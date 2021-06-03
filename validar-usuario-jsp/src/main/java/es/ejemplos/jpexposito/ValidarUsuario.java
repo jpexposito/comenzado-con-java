@@ -4,23 +4,23 @@ public class ValidarUsuario {
  
    private String usuario;
    private String password;
+   private String usuarioAlmancenado = "test";
+   private String passwordAlmancenado = "test";
+
+
+
 
    /**
-    * Funcion encargada de realizar la validacion del usuario
+    * Funcion encargada de realizar la validacion del usuario 
     * @param usuario
     * @param password
-    * @return
+    * @return true/false 
     */
-   public boolean validate(String usuario, String password){
-      System.out.println("Valor de this.usuario:"+this.usuario);
-      System.out.println("Valor de usuario:"+usuario);
-      System.out.println("Valor de this.password:"+this.password);
-      System.out.println("Valor de password:"+password);
-      
-       if (usuario.equals(this.usuario) && usuario.equals(this.password))
-           return true;
+   public boolean validate(){
+       if (usuarioAlmancenado.equals(this.usuario) && passwordAlmancenado.equals(this.password))
+         return true;
        else
-           return false;
+         return false;
    }
 
    public String getUsuario() {
