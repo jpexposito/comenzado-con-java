@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page errorPage = "showError.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,10 +19,6 @@
         <p>Username : <jsp:getProperty name="validarUsuario" property="usuario"/></p>
         <p>Password : <jsp:getProperty name="validarUsuario" property="password"/></p>
           
-        <%if(validarUsuario.validate()){%>
-            Ok! El usuario es valido<br/>
-        <%}else{%>
-            Error! El usuario es Invalido<br/>
-        <%}%>  
+        <% validarUsuario.validate(); %> 
     </body>
 </html>

@@ -1,5 +1,7 @@
 package es.ejemplos.jpexposito;
 
+import es.ejemplos.jpexposito.exceptions.UsuarioException;
+
 public class ValidarUsuario {
  
    private String usuario;
@@ -15,12 +17,12 @@ public class ValidarUsuario {
     * @param usuario
     * @param password
     * @return true/false 
+    * @throws UsuarioException
     */
-   public boolean validate(){
-       if (usuarioAlmancenado.equals(this.usuario) && passwordAlmancenado.equals(this.password))
-         return true;
-       else
-         return false;
+   public void validate() throws UsuarioException{
+       if (!(usuarioAlmancenado.equals(this.usuario) && passwordAlmancenado.equals(this.password)))
+       throw new UsuarioException("El usuario o contraseña no son validos");
+        
    }
 
    public String getUsuario() {
