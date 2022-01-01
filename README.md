@@ -20,4 +20,4 @@ _Explica como ejecutar las pruebas automatizadas para este sistema_
 Para la ejecución de las distintas pruebas de los propyectos, tan sólo hemos de ejecutar *mvn clean test*.
 
 ## Recursos
-* [freepng](https://www.freepng.es/ - que se utilizan en los diferentes ejemplos. Estás imagenes son explicativas y se utilizan para hacer más ameno las explicaciones. No se hace uso comercial de ellas.
+* [freepng](https://www.freepng.es/) - que se utilizan en los diferentes ejemplos. Estás imagenes son explicativas y se utilizan para hacer más ameno las explicaciones. No se hace uso comercial de ellas.
