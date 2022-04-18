@@ -20,23 +20,23 @@ Para la ejecución de las distintas pruebas de los propyectos, tan sólo hemos d
 
 ## Índice
 - [¿Qué se va a tratar en el curso?](md/00-curso-java.md).
-- [Introducción a la programación en Java.](md/01-introduccion-a-java.md).
+- [Introducción a la programación en Java](md/01-introduccion-a-java.md).
 - [Instalación y configuración.](md/02-instalacion-y-configuracion.md).
-- [Sintaxis del Lenguaje.](md/03-sintaxsis-del-lenguaje.md).
-- [Clases y Objetos.](md/04-clases-y-objetos.md).
-- [Utilización de Clases.](md/05-utilizacion-clases.md).
-- [Estructuras de Datos.](md/06-estructuras-de-datos.md).
-- [Documentación de Código.](md/07-documentacion-codigo.md).
-- [Documentación de Proyectos.](md/08-documentacion-proyectos.md).
-- [Patrones de Diseño.](md/09-patrones-de-disenio.md).
-- [Desarrollo guiado por pruebas.](md/10-desarrollo-guiado-por-pruebas.md).
-- [Desarrollo en el Mundo Real.](md/11-desarrollo-aplicaciones-mundo-real.md).
-- [Lectura y Escritura Estándar.](md/12-lectura-y-escritura-estandar.md).
-- [Lectura y Escritura de Ficheros.](md/13-lectura-y-escritura-ficheros.md).
-- [JDBC.](md/14-jdbc.md).
-- [JPA.](md/15-jpa.md).
-- [Desarrollo en Linux.](md/APENDICE-I-guion-desarrollo-linux.md).
-- [Ejercicios Propuestos.](md/APENDICE-II-ejercicios-propuestos.md).
+- [Sintaxis del Lenguaje](md/03-sintaxsis-del-lenguaje.md).
+- [Clases y Objetos](md/04-clases-y-objetos.md).
+- [Utilización de Clases](md/05-utilizacion-clases.md).
+- [Estructuras de Datos](md/06-estructuras-de-datos.md).
+- [Documentación de Código](md/07-documentacion-codigo.md).
+- [Documentación de Proyectos](md/08-documentacion-proyectos.md).
+- [Patrones de Diseño](md/09-patrones-de-disenio.md).
+- [Desarrollo guiado por pruebas](md/10-desarrollo-guiado-por-pruebas.md).
+- [Desarrollo en el Mundo Real](md/11-desarrollo-aplicaciones-mundo-real.md).
+- [Lectura y Escritura Estándar](md/12-lectura-y-escritura-estandar.md).
+- [Lectura y Escritura de Ficheros](md/13-lectura-y-escritura-ficheros.md).
+- [JDBC](md/14-jdbc.md).
+- [JPA](md/15-jpa.md).
+- [Desarrollo en Linux](md/APENDICE-I-guion-desarrollo-linux.md).
+- [Ejercicios Propuestos](md/APENDICE-II-ejercicios-propuestos.md).
 
 ## En construcción permanente
 
