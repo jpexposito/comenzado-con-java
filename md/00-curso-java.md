@@ -31,34 +31,27 @@
 
 # Contenidos de curso (I)
 
-- **Día 1**
-    - U.T.  1 - Introducción a Java.
-    - U.T.  2 - Instalación y configuración del entorno.
-    - U.T.  3 - Sintaxis del lenguaje.
-- **Día 2**
-    - U.T.  4 - Clases y objetos.
-    - U.T.  5 - Utilización avanzada de clases.
-- **Día 3**
-    - U.T.  6 - Estructuras de datos.
-    - U.T.  7 - Documentación del código.
+- U.T.  1 - Introducción a Java.
+- U.T.  2 - Instalación y configuración del entorno.
+- U.T.  3 - Sintaxis del lenguaje.
+- U.T.  4 - Clases y objetos.
+- U.T.  5 - Utilización avanzada de clases.
+- U.T.  6 - Estructuras de datos.
+- U.T.  7 - Documentación del código.
 
 # Contenidos de curso (II)
 
-- **Día 4**
-    - U.T.  8 - Documentación de las aplicaciones.
-    - U.T.  9 - Patrones de diseño.
-- **Día 5**
-    - U.T. 10 - Desarrollo guiado por pruebas.
-    - U.T. 11 - Desarrollo de aplicaciones en el mundo real.
+- U.T.  8 - Documentación de las aplicaciones.
+- U.T.  9 - Patrones de diseño.
+- U.T. 10 - Desarrollo guiado por pruebas.
+- U.T. 11 - Desarrollo de aplicaciones en el mundo real.
 
 # Contenidos de curso (III)
 
-- **Día 6**
-    - U.T. 12 - Lectura y escritura de información estándar.
-    - U.T. 13 - Lectura y escritura de ficheros.
-- **Día 7**
-    - U.T. 14 - Trabajo con bases de datos mediante JDBC.
-    - U.T. 15 - Persistencia de objetos con JPA.
+- U.T. 12 - Lectura y escritura de información estándar.
+- U.T. 13 - Lectura y escritura de ficheros.
+- U.T. 14 - Trabajo con bases de datos mediante JDBC.
+- U.T. 15 - Persistencia de objetos con JPA.
 
 # Resumen y conclusiones
 
@@ -68,5 +61,5 @@
     - **Pocas horas**
 - Conclusión
     - Se ruega:
-        - **Puntualidad**
-        - **Silencio**
+        - **Puntualidad.**
+        - **Trabajo.**
